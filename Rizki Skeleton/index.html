@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Web App Skeleton v 0.3</title>
+	<link href="static/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<header>
+		<img src="media/images/skeleton.png" alt="Web App Skeleton" data-source="http://www.gettyicons.com/free-icon/119/halloween-icon-set/free-skull-icon-png/">
+		<h1>Web App Skeleton</h1>
+		<nav>
+			<ul>
+				<li><a href="#/page1" data>Schedule</a></li>
+				<li><a href="#/page2">Game</a></li>
+				<li><a href="#/page3">Ranking</a></li>
+		    </ul>
+		</nav>
+	</header>
+	
+	<article id="content" class="col">
+		<section data-route="page1" class="active">
+			<h1 data-bind="title"></h1>
+			<p data-bind="description"></p>
+			 <section data-bind="schedule">
+			    <section>
+			      <h1 data-bind="date"></h1>
+			      <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label>v.</label> <label data-bind="team2Score"></label> <label data-bind="team2"></label>
+			    </section>
+			  </section>
+		</section>
+
+		<section data-route="page2">
+			<h1 data-bind="title"></h1>
+			<p data-bind="description"></p>
+			<section data-bind="game">
+				<section>
+					<label data-bind="score"></label> <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label> - </label> <label data-bind="team2"></label> <label data-bind="team2Score"></label>
+				</section>
+			</section>
+		</section>
+
+		<section data-route="page3">
+			<h1 data-bind="title"></h1>
+			<p data-bind="description"></p>
+			<section data-bind="ranking">
+				<section>
+					<label data-bind="team"></label> <label data-bind="Win"></label> <label data-bind="Lost"></label> <label data-bind="Sw"></label> <label data-bind="S1"></label> <label data-bind="Pw"></label> <label data-bind="Pl"></label>
+				</section>
+			</section>
+		</section>
+	</article>
+
+	<!-- Libs -->
+	<script src="static/js/lib/routie.min.js"></script>
+	<script src="static/js/lib/ready.min.js" type="text/javascript"></script>
+	<script src="static/js/lib/qwery.min.js" type="text/javascript"></script>
+	<script src="static/js/lib/transparancy.min.js" type="text/javascript"></script>
+
+	<!-- Application -->
+	<script src="static/js/app.js"></script>
+	
+</body>
+</html>
