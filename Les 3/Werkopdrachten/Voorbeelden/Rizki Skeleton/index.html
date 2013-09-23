@@ -34,11 +34,21 @@
 		<section data-route="page2">
 			<h1 data-bind="title"></h1>
 			<p data-bind="description"></p>
+			<section data-bind="game">
+				<section>
+					<label data-bind="score"></label> <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label> - </label> <label data-bind="team2"></label> <label data-bind="team2Score"></label>
+				</section>
+			</section>
 		</section>
 
 		<section data-route="page3">
 			<h1 data-bind="title"></h1>
 			<p data-bind="description"></p>
+			<section data-bind="ranking">
+				<section>
+					<label data-bind="team"></label> <label data-bind="Win"></label> <label data-bind="Lost"></label> <label data-bind="Sw"></label> <label data-bind="S1"></label> <label data-bind="Pw"></label> <label data-bind="Pl"></label>
+				</section>
+			</section>
 		</section>
 	</article>
 
