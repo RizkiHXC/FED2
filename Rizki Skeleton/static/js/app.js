@@ -1,8 +1,8 @@
 var APP = APP || {};
 
 (function () {
-	// Data objecten
-	APP.page1 = {
+	// Schedule data object
+	APP.schedule = {
 		title:'Pool A - Schedule',
 		description:'Hier vindt u het speelschema van pool A',
 		schedule: [
@@ -20,7 +20,8 @@ var APP = APP || {};
 		]
 	};
 
-	APP.page2 = {
+	//Game data object
+	APP.game = {
 		title:'Pool A - Score: Boomsquad vs. Burning Snow',
 		description:'Boomsquad* 15 - 8 Burning Snow',
 		game: [
@@ -50,7 +51,8 @@ var APP = APP || {};
 		]
 	};
 
-	APP.page3 = {
+	//Ranking data object
+	APP.ranking = {
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
 		ranking: [
@@ -74,18 +76,18 @@ var APP = APP || {};
 	APP.router = {
 		init: function () {
 	  		routie({
-			    '/page1': function() {
-			    	APP.page.render('page1');
+			    '/schedule': function() {
+			    	APP.page.render('schedule');
 				},
-			    '/page2': function() {
-			    	APP.page.render('page2');
+			    '/game': function() {
+			    	APP.page.render('game');
 			    },
 
-			    '/page3': function() {
-			    	APP.page.render('page3');
+			    '/ranking': function() {
+			    	APP.page.render('ranking');
 			    },
 			    '*': function() {
-			    	APP.page.render('page1');
+			    	APP.page.render('schedule');
 			    }
 			});
 		},
@@ -96,6 +98,7 @@ var APP = APP || {};
                 section = qwery('[data-route=' + route + ']')[0];
 
             // Show active section, hide all other
+            // If section is true, remove active class in all sections then add active to section
             if (section) {
             	for (var i=0; i < sections.length; i++){
             		sections[i].classList.remove('active');
@@ -121,9 +124,9 @@ var APP = APP || {};
 			APP.router.change();
 		}
 	}
-	// DOM ready
+	// If DOM == ready, fire function:
 	domready(function () {
-		// Kickstart application
+		// Initialize APP
 		APP.controller.init();
 	});
 	
