@@ -1,8 +1,8 @@
-var APP = APP || {};
+var FRISBYAPP = FRISBYAPP || {};
 
 (function () {
 	// Schedule data object
-	APP.schedule = {
+	FRISBYAPP.schedule = {
 		title:'Pool A - Schedule',
 		description:'Hier vindt u het speelschema van pool A',
 		schedule: [
@@ -21,7 +21,7 @@ var APP = APP || {};
 	};
 
 	//Game data object
-	APP.game = {
+	FRISBYAPP.game = {
 		title:'Pool A - Score: Boomsquad vs. Burning Snow',
 		description:'Boomsquad* 15 - 8 Burning Snow',
 		game: [
@@ -52,7 +52,7 @@ var APP = APP || {};
 	};
 
 	//Ranking data object
-	APP.ranking = {
+	FRISBYAPP.ranking = {
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
 		ranking: [
@@ -65,29 +65,29 @@ var APP = APP || {};
 	};
 	
 	// Controller Init
-	APP.controller = {
+	FRISBYAPP.controller = {
 		init: function () {
 			// Initialize router
-			APP.router.init();
+			FRISBYAPP.router.init();
 		}
 	};
 
 	// Router
-	APP.router = {
+	FRISBYAPP.router = {
 		init: function () {
 	  		routie({
 			    '/schedule': function() {
-			    	APP.page.render('schedule');
+			    	FRISBYAPP.page.render('schedule');
 				},
 			    '/game': function() {
-			    	APP.page.render('game');
+			    	FRISBYAPP.page.render('game');
 			    },
 
 			    '/ranking': function() {
-			    	APP.page.render('ranking');
+			    	FRISBYAPP.page.render('ranking');
 			    },
 			    '*': function() {
-			    	APP.page.render('schedule');
+			    	FRISBYAPP.page.render('schedule');
 			    }
 			});
 		},
@@ -115,19 +115,19 @@ var APP = APP || {};
 	};
 
 	// Pages
-	APP.page = {
+	FRISBYAPP.page = {
 		render: function (route) {
 			// http://javascriptweblog.wordpress.com/2010/04/19/how-evil-is-eval/
-			var data = eval('APP.'+route);
+			var data = eval('FRISBYAPP.'+route);
 
 			Transparency.render(qwery('[data-route='+route+']')[0], data);
-			APP.router.change();
+			FRISBYAPP.router.change();
 		}
 	}
 	// If DOM == ready, fire function:
 	domready(function () {
-		// Initialize APP
-		APP.controller.init();
+		// Initialize FRISBYAPP
+		FRISBYAPP.controller.init();
 	});
 	
 })();
