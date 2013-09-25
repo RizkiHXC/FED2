@@ -1,8 +1,8 @@
-var FRISBYAPP = FRISBYAPP || {};
+var FRISBEEAPP = FRISBEEAPP || {};
 
 (function () {
 	// Schedule data object
-	FRISBYAPP.schedule = {
+	FRISBEEAPP.schedule = {
 		title:'Pool A - Schedule',
 		description:'Hier vindt u het speelschema van pool A',
 		schedule: [
@@ -21,7 +21,7 @@ var FRISBYAPP = FRISBYAPP || {};
 	};
 
 	//Game data object
-	FRISBYAPP.game = {
+	FRISBEEAPP.game = {
 		title:'Pool A - Score: Boomsquad vs. Burning Snow',
 		description:'Boomsquad* 15 - 8 Burning Snow',
 		game: [
@@ -52,7 +52,7 @@ var FRISBYAPP = FRISBYAPP || {};
 	};
 
 	//Ranking data object
-	FRISBYAPP.ranking = {
+	FRISBEEAPP.ranking = {
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
 		ranking: [
@@ -65,29 +65,29 @@ var FRISBYAPP = FRISBYAPP || {};
 	};
 	
 	// Controller Init
-	FRISBYAPP.controller = {
+	FRISBEEAPP.controller = {
 		init: function () {
 			// Initialize router
-			FRISBYAPP.router.init();
+			FRISBEEAPP.router.init();
 		}
 	};
 
 	// Router
-	FRISBYAPP.router = {
+	FRISBEEAPP.router = {
 		init: function () {
 	  		routie({
 			    '/schedule': function() {
-			    	FRISBYAPP.page.render('schedule');
+			    	FRISBEEAPP.page.render('schedule');
 				},
 			    '/game': function() {
-			    	FRISBYAPP.page.render('game');
+			    	FRISBEEAPP.page.render('game');
 			    },
 
 			    '/ranking': function() {
-			    	FRISBYAPP.page.render('ranking');
+			    	FRISBEEAPP.page.render('ranking');
 			    },
 			    '*': function() {
-			    	FRISBYAPP.page.render('schedule');
+			    	FRISBEEAPP.page.render('schedule');
 			    }
 			});
 		},
@@ -115,19 +115,27 @@ var FRISBYAPP = FRISBYAPP || {};
 	};
 
 	// Pages
-	FRISBYAPP.page = {
+	FRISBEEAPP.page = {
 		render: function (route) {
 			// http://javascriptweblog.wordpress.com/2010/04/19/how-evil-is-eval/
-			var data = eval('FRISBYAPP.'+route);
+			var data = eval('FRISBEEAPP.'+route);
 
 			Transparency.render(qwery('[data-route='+route+']')[0], data);
-			FRISBYAPP.router.change();
+			FRISBEEAPP.router.change();
+		}
+	}
+
+	// Calculate ± points
+	FRISBEEAPP.calculator = {
+		calculate: function () {
+
+
 		}
 	}
 	// If DOM == ready, fire function:
 	domready(function () {
-		// Initialize FRISBYAPP
-		FRISBYAPP.controller.init();
+		// Initialize FRISBEEAPP
+		FRISBEEAPP.controller.init();
 	});
 	
 })();
