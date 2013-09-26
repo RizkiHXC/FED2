@@ -55,12 +55,12 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	FRISBEEAPP.ranking = {
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
-		ranking: [
-			{ team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39"},
-		    { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34"},
-		    { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23"},
-		    { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34"},
-		    { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37"}
+		rank: [
+			{ team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39", Bl: 0},
+		    { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34", Bl: 0},
+		    { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23", Bl: 0},
+		    { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34", Bl: 0},
+		    { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37", Bl: 0}
 		]
 	};
 	
@@ -68,6 +68,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	FRISBEEAPP.controller = {
 		init: function () {
 			// Initialize router
+			FRISBEEAPP.calculator.init();
 			FRISBEEAPP.router.init();
 		}
 	};
@@ -126,12 +127,33 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	}
 
 	// Calculate ± points
+
 	FRISBEEAPP.calculator = {
-		calculate: function () {
+		init: function() {
+			//Create a loop that loops through every array and picks up/calculates the balance of scores:
+			for(var i = 0; i < FRISBEEAPP.ranking.rank.length; i++) {
+				var balance = this.calculateBalance(FRISBEEAPP.ranking.rank[i]["Pw"], FRISBEEAPP.ranking.rank[i]["Pl"]);
+				
+				FRISBEEAPP.ranking.rank[i]["Bl"] = balance;
 
 
+				console.log(balance);
+			}
+		},
+
+		calculateBalance: function (won, lost) {
+			console.log("fixed");
+
+			var pointsWon = parseInt(won);
+			var pointsLost = parseInt(lost);
+
+			var pointsBalance = pointsWon - pointsLost;
+
+			return pointsBalance;
 		}
 	}
+
+
 	// If DOM == ready, fire function:
 	domready(function () {
 		// Initialize FRISBEEAPP
