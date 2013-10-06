@@ -1,6 +1,9 @@
 var FRISBEEAPP = FRISBEEAPP || {};
 
 (function () {
+
+	'use strict';
+
 	// Schedule data object
 	FRISBEEAPP.schedule = {
 		title:'Pool A - Schedule',
@@ -70,6 +73,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			// Initialize router
 			FRISBEEAPP.calculator.init();
 			FRISBEEAPP.router.init();
+			FRISBEEAPP.ajax.init('http://dennistel.nl/movies');
+
 		}
 	};
 
@@ -150,6 +155,21 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			var pointsBalance = pointsWon - pointsLost;
 
 			return pointsBalance;
+		}
+	}
+
+	FRISBEEAPP.ajax = {
+		init: function (url) {
+			var jsonObject = reqwest({
+				url: url,
+				method: 'get',
+				data: {},
+				success: function (resp) {
+					console.log(this);
+				}
+			})
+			// var jsonParsed = JSON.parse(jsonObject);
+			// console.log(jsonParsed);
 		}
 	}
 
