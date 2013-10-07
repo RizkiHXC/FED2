@@ -73,7 +73,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			// Initialize router
 			FRISBEEAPP.calculator.init();
 			FRISBEEAPP.router.init();
-			FRISBEEAPP.ajax.init('http://dennistel.nl/movies');
+			FRISBEEAPP.ajax.init();
 
 		}
 	};
@@ -159,17 +159,17 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	}
 
 	FRISBEEAPP.ajax = {
-		init: function (url) {
-			var jsonObject = reqwest({
-				url: url,
-				method: 'get',
-				data: {},
-				success: function (resp) {
-					console.log(this);
-				}
-			})
-			// var jsonParsed = JSON.parse(jsonObject);
-			// console.log(jsonParsed);
+		init: function () {
+			this.getObjectsFromAPI("https://api.leaguevine.com/v1/pools/?tournament_id=19389");
+		},
+
+		getObjectsFromAPI: function (url) {
+			var ajaxGetter = new promise.Promise();
+
+			var jsonObject = ajaxGetter.get(url);
+			var parsedObject = JSON.parse(jsonObject);
+
+			console.log(url);
 		}
 	}
 
