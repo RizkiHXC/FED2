@@ -164,12 +164,19 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		},
 
 		getObjectsFromAPI: function (url) {
-			var ajaxGetter = new promise.Promise();
+			promise.get(url).then(function(error, text, xhr){
+				if (error) {
+       				alert('Error ' + xhr.status);
+        			return;
+    			}	
+				var parsedObject = JSON.parse(text);
 
-			var jsonObject = ajaxGetter.get(url);
-			var parsedObject = JSON.parse(jsonObject);
+				for(var i = 0; i = parsedObject.objects.length; i++) {
+					console.log(parsedObject.objects[i]);
+				}
 
-			console.log(url);
+				console.log(parsedObject);
+			});
 		}
 	}
 
