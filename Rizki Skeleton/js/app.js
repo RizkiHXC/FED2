@@ -171,8 +171,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
     			}	
 				var parsedObject = JSON.parse(text);
 
-				for(var i = 0; i = parsedObject.objects.length; i++) {
-					console.log(parsedObject.objects[i]);
+				for(var i = 0; i < parsedObject.objects.length; i++) {
+					console.log(parsedObject.objects[i]["name"]);
 				}
 
 				console.log(parsedObject);
