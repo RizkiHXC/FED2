@@ -1,8 +1,11 @@
-var FRISBYAPP = FRISBYAPP || {};
+var FRISBEEAPP = FRISBEEAPP || {};
 
 (function () {
+
+	'use strict';
+
 	// Schedule data object
-	FRISBYAPP.schedule = {
+	FRISBEEAPP.schedule = {
 		title:'Pool A - Schedule',
 		description:'Hier vindt u het speelschema van pool A',
 		schedule: [
@@ -21,7 +24,7 @@ var FRISBYAPP = FRISBYAPP || {};
 	};
 
 	//Game data object
-	FRISBYAPP.game = {
+	FRISBEEAPP.game = {
 		title:'Pool A - Score: Boomsquad vs. Burning Snow',
 		description:'Boomsquad* 15 - 8 Burning Snow',
 		game: [
@@ -52,42 +55,54 @@ var FRISBYAPP = FRISBYAPP || {};
 	};
 
 	//Ranking data object
-	FRISBYAPP.ranking = {
+	FRISBEEAPP.ranking = {
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
-		ranking: [
-			{ team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39"},
-		    { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34"},
-		    { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23"},
-		    { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34"},
-		    { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37"}
+		rank: [
+			{ team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39", Bl: 0},
+		    { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34", Bl: 0},
+		    { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23", Bl: 0},
+		    { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34", Bl: 0},
+		    { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37", Bl: 0}
+		]
+	};
+
+	FRISBEEAPP.poule = {
+		poule: [
+			{idNumber: "", pouleName: ""},
+			{idNumber: "", pouleName: ""},
+			{idNumber: "", pouleName: ""},
+			{idNumber: "", pouleName: ""}
 		]
 	};
 	
 	// Controller Init
-	FRISBYAPP.controller = {
+	FRISBEEAPP.controller = {
 		init: function () {
 			// Initialize router
-			FRISBYAPP.router.init();
+			FRISBEEAPP.calculator.init();
+			FRISBEEAPP.router.init();
+			FRISBEEAPP.ajax.init();
+
 		}
 	};
 
 	// Router
-	FRISBYAPP.router = {
+	FRISBEEAPP.router = {
 		init: function () {
 	  		routie({
 			    '/schedule': function() {
-			    	FRISBYAPP.page.render('schedule');
+			    	FRISBEEAPP.page.render('schedule');
 				},
 			    '/game': function() {
-			    	FRISBYAPP.page.render('game');
+			    	FRISBEEAPP.page.render('game');
 			    },
 
 			    '/ranking': function() {
-			    	FRISBYAPP.page.render('ranking');
+			    	FRISBEEAPP.page.render('ranking');
 			    },
 			    '*': function() {
-			    	FRISBYAPP.page.render('schedule');
+			    	FRISBEEAPP.page.render('schedule');
 			    }
 			});
 		},
@@ -115,19 +130,72 @@ var FRISBYAPP = FRISBYAPP || {};
 	};
 
 	// Pages
-	FRISBYAPP.page = {
+	FRISBEEAPP.page = {
 		render: function (route) {
 			// http://javascriptweblog.wordpress.com/2010/04/19/how-evil-is-eval/
-			var data = eval('FRISBYAPP.'+route);
+			var data = eval('FRISBEEAPP.'+route);
 
 			Transparency.render(qwery('[data-route='+route+']')[0], data);
-			FRISBYAPP.router.change();
+			FRISBEEAPP.router.change();
 		}
 	}
+
+	// Calculate ± points
+
+	FRISBEEAPP.calculator = {
+		init: function() {
+			//Create a loop that loops through every array and picks up/calculates the balance of scores:
+			for(var i = 0; i < FRISBEEAPP.ranking.rank.length; i++) {
+				var balance = this.calculateBalance(FRISBEEAPP.ranking.rank[i]["Pw"], FRISBEEAPP.ranking.rank[i]["Pl"]);
+				
+				FRISBEEAPP.ranking.rank[i]["Bl"] = balance;
+
+
+				console.log(balance);
+			}
+		},
+
+		calculateBalance: function (won, lost) {
+			console.log("fixed");
+
+			var pointsWon = parseInt(won);
+			var pointsLost = parseInt(lost);
+
+			var pointsBalance = pointsWon - pointsLost;
+
+			return pointsBalance;
+		}
+	}
+
+	FRISBEEAPP.ajax = {
+		init: function () {
+			this.getObjectsFromAPI("https://api.leaguevine.com/v1/pools/?tournament_id=19389");
+		},
+
+		getObjectsFromAPI: function (url) {
+			promise.get(url).then(function(error, text, xhr){
+				if (error) {
+       				alert('Error ' + xhr.status);
+        			return;
+    			}	
+				var parsedObject = JSON.parse(text);
+
+				for(var i = 0; i < parsedObject.objects.length; i++) {
+					FRISBEEAPP.poule.poule[i].pouleName = parsedObject.objects[i].name;
+					FRISBEEAPP.poule.poule[i].idNumber = parsedObject.objects[i].id;
+
+					console.log(FRISBEEAPP.schedule.schedule[i]);
+					console.log(FRISBEEAPP.poule.poule[i]);
+				}
+			});
+		}
+	}
+
+
 	// If DOM == ready, fire function:
 	domready(function () {
-		// Initialize FRISBYAPP
-		FRISBYAPP.controller.init();
+		// Initialize FRISBEEAPP
+		FRISBEEAPP.controller.init();
 	});
 	
 })();

@@ -59,11 +59,20 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
 		rank: [
-			{ team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39", Bl: 0},
-		    { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34", Bl: 0},
-		    { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23", Bl: 0},
-		    { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34", Bl: 0},
-		    { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37", Bl: 0}
+			{ team: "", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39", Bl: 0}, 
+		    { team: "", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34", Bl: 0},
+		    { team: "", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23", Bl: 0},
+		    { team: "", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34", Bl: 0},
+		    { team: "", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37", Bl: 0}
+		]
+	};
+
+	FRISBEEAPP.poule = {
+		poule: [
+			{idNumber: "", pouleName: ""},
+			{idNumber: "", pouleName: ""},
+			{idNumber: "", pouleName: ""},
+			{idNumber: "", pouleName: ""}
 		]
 	};
 	
@@ -72,9 +81,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		init: function () {
 			// Initialize router
 			FRISBEEAPP.calculator.init();
-			FRISBEEAPP.router.init();
 			FRISBEEAPP.ajax.init();
-
+			FRISBEEAPP.router.init();
 		}
 	};
 
@@ -172,10 +180,15 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				var parsedObject = JSON.parse(text);
 
 				for(var i = 0; i < parsedObject.objects.length; i++) {
-					console.log(parsedObject.objects[i]["name"]);
-				}
+					FRISBEEAPP.poule.poule[i].pouleName = parsedObject.objects[i].name;
+					FRISBEEAPP.poule.poule[i].idNumber = parsedObject.objects[i].id;
 
-				console.log(parsedObject);
+					for (var c = 0; c < parsedObject.objects[i].standings.length; c++) {
+						FRISBEEAPP.ranking.rank[i].team = parsedObject.objects[c].standings[c].team.name;
+						console.log(FRISBEEAPP.ranking.rank[i]);
+					}
+
+				}
 			});
 		}
 	}
