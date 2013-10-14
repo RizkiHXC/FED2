@@ -59,11 +59,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
 		rank: [
-			{ team: "", win: "", lost: "", gs: "", ga: "", bl: 0}, 
-		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0},
-		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0},
-		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0},
-		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0}
+
 		]
 	};
 	
@@ -123,7 +119,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	FRISBEEAPP.page = {
 		render: function (route) {
 			// http://javascriptweblog.wordpress.com/2010/04/19/how-evil-is-eval/
-			var data = eval('FRISBEEAPP.'+route);
+			var data = FRISBEEAPP[route];
 
 			Transparency.render(qwery('[data-route='+route+']')[0], data);
 			FRISBEEAPP.router.change();
@@ -165,18 +161,21 @@ var FRISBEEAPP = FRISBEEAPP || {};
     			}	
 				var parsedObject = JSON.parse(text);
 
-				for(var i = 0; i < parsedObject.objects.length; i++) {
-					var standingsLength = parsedObject.objects[i].standings.length;
+				// For elke pool in de api
+				for (var i = 0; i < parsedObject.objects.length; i++) {
+					var poolName = parsedObject.objects[i].name;
+					//console.log(poolName);
 
-					for (var c = 0; c < standingsLength; c++) {
-						FRISBEEAPP.ranking.rank[i].team = parsedObject.objects[i].standings[c].team.name;
-						FRISBEEAPP.ranking.rank[i].win = parsedObject.objects[i].standings[c].wins;
-						FRISBEEAPP.ranking.rank[i].lost = parsedObject.objects[i].standings[c].losses;
-						FRISBEEAPP.ranking.rank[i].gs = parsedObject.objects[i].standings[c].points_scored;
-						FRISBEEAPP.ranking.rank[i].ga = parsedObject.objects[i].standings[c].points_allowed;
-						FRISBEEAPP.ranking.rank[i].bl = parsedObject.objects[i].standings[c].plus_minus;
+					// For elke team binnen een pool
+					for (var c = 0; c < parsedObject.objects[i].standings.length; c++) {
+						//console.log(parsedObject.objects[i].standings[c].team.name);
 
-						console.log(FRISBEEAPP.ranking.rank[i]);
+						FRISBEEAPP.ranking.rank[i].teams = {
+							team: parsedObject.objects[i].standings[c].team.name
+						};
+
+						console.log(parsedObject.objects[i].standings.length);
+
 					}
 				}
 			});
