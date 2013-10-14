@@ -59,11 +59,11 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		title:'Ranking',
 		description:'Hier vindt u de ranking',
 		rank: [
-			{ team: "", Win: "", Lost: "", Gs: "", Ga: "", Bl: 0}, 
-		    { team: "", Win: "", Lost: "", Gs: "", Ga: "", Bl: 0},
-		    { team: "", Win: "", Lost: "", Gs: "", Ga: "", Bl: 0},
-		    { team: "", Win: "", Lost: "", Gs: "", Ga: "", Bl: 0},
-		    { team: "", Win: "", Lost: "", Gs: "", Ga: "", Bl: 0}
+			{ team: "", win: "", lost: "", gs: "", ga: "", bl: 0}, 
+		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0},
+		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0},
+		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0},
+		    { team: "", win: "", lost: "", gs: "", ga: "", bl: 0}
 		]
 	};
 	
@@ -71,9 +71,9 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	FRISBEEAPP.controller = {
 		init: function () {
 			// Initialize router
-			FRISBEEAPP.calculator.init();
+			//FRISBEEAPP.calculator.init();
 			FRISBEEAPP.ajax.init();
-			FRISBEEAPP.router.init();
+			//FRISBEEAPP.router.init();
 		}
 	};
 
@@ -139,15 +139,10 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				var balance = this.calculateBalance(FRISBEEAPP.ranking.rank[i]["Pw"], FRISBEEAPP.ranking.rank[i]["Pl"]);
 				
 				FRISBEEAPP.ranking.rank[i]["Bl"] = balance;
-
-
-				console.log(balance);
 			}
 		},
 
 		calculateBalance: function (won, lost) {
-			console.log("fixed");
-
 			var pointsWon = parseInt(won);
 			var pointsLost = parseInt(lost);
 
@@ -171,15 +166,22 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				var parsedObject = JSON.parse(text);
 
 				for(var i = 0; i < parsedObject.objects.length; i++) {
-					console.log("lol =" + i);
 					var standingsLength = parsedObject.objects[i].standings.length;
 
 					for (var c = 0; c < standingsLength; c++) {
-						console.log(parsedObject.objects[i].standings[c].team.name);
-						console.log("lmao =" + c);
+						FRISBEEAPP.ranking.rank[i].team = parsedObject.objects[i].standings[c].team.name;
+						FRISBEEAPP.ranking.rank[i].win = parsedObject.objects[i].standings[c].wins;
+						FRISBEEAPP.ranking.rank[i].lost = parsedObject.objects[i].standings[c].losses;
+						FRISBEEAPP.ranking.rank[i].gs = parsedObject.objects[i].standings[c].points_scored;
+						FRISBEEAPP.ranking.rank[i].ga = parsedObject.objects[i].standings[c].points_allowed;
+						FRISBEEAPP.ranking.rank[i].bl = parsedObject.objects[i].standings[c].plus_minus;
+
+						console.log(FRISBEEAPP.ranking.rank[i]);
 					}
 				}
 			});
+
+			FRISBEEAPP.router.init();
 		}
 	}
 

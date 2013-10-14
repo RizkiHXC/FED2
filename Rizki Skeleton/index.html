@@ -42,12 +42,41 @@
 		</section>
 
 		<section data-route="ranking">
-			<h1 data-bind="title"></h1>
+			<header>
+				<h1> Pool A </h1>
+			</header>
+			<table>
+				<tr>
+					<th>Team</th>
+					<th>W</th>
+					<th>L</th>
+					<th>Gs</th>
+					<th>Ga</th>
+					<th>+/-</th>
+				</tr>
+
+				<tr data-bind="rank">
+					<td data-bind="team"></td>
+					<td data-bind=""></td>
+					<td data-bind=""></td>
+					<td data-bind=""></td>
+					<td data-bind=""></td>
+					<td data-bind=""></td>
+				</tr>
+
+			</table>
+
+
+
+
+
+
+		<!--	<h1 data-bind="title"></h1>
 			<p data-bind="description"></p>
 			<section data-bind="rank">
 				<section>
 					<label data-bind="team"></label> <label data-bind="Win"></label> <label data-bind="Lost"></label> <label data-bind="Gs"></label> <label data-bind="Sl"></label> <label data-bind="Pw"></label> <label data-bind="Pl"></label> <label data-bind="Bl"></label>
-				</section>
+				</section> -->
 			</section>
 		</section>
 	</article>
