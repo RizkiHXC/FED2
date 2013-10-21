@@ -88,7 +88,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			    	FRISBEEAPP.page.render('schedule');
 			    }
 			});
-						    console.log("INITTTT");
 		},
 
 		change: function () {
@@ -148,46 +147,34 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 	FRISBEEAPP.ajax = {
 		init: function () {
-			this.getObjectsForPools("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
+			this.getObjectsFromAPI("https://api.leaguevine.com/v1/pools/?tournament_id=19389");
 		},
 
-		getObjectsForPools: function (url) {
-
+		getObjectsFromAPI: function (url) {
 			promise.get(url).then(function(error, text, xhr){
 				if (error) {
        				alert('Error ' + xhr.status);
         			return;
     			}	
-
 				var parsedObject = JSON.parse(text);
 
 				// For elke pool in de api
 				for (var i = 0; i < parsedObject.objects.length; i++) {
 					var poolName = parsedObject.objects[i].name;
-
-					FRISBEEAPP.ranking.rank[i] = {
-						poolID: "Pool " + poolName
-					};
-
-					FRISBEEAPP.ranking.rank[i].teams = [];
+					//console.log(poolName);
 
 					// For elke team binnen een pool
 					for (var c = 0; c < parsedObject.objects[i].standings.length; c++) {
 						//console.log(parsedObject.objects[i].standings[c].team.name);
 
-						FRISBEEAPP.ranking.rank[i].teams[c] = {
-						 	team: parsedObject.objects[i].standings[c].team.name,
-						 	win: parsedObject.objects[i].standings[c].wins,
-						 	lost: parsedObject.objects[i].standings[c].losses,
-						 	gs: parsedObject.objects[i].standings[c].points_scored,
-						 	ga: parsedObject.objects[i].standings[c].points_allowed,
-						 	balance: parsedObject.objects[i].standings[c].plus_minus
-						};
+						// FRISBEEAPP.ranking.rank[i] = {
+						// 	team: parsedObject.objects[i].standings[c].team.name
+						// };
 					}
-					
 				}
-				FRISBEEAPP.router.init();
 			});
+
+			FRISBEEAPP.router.init();
 		}
 	}
 
