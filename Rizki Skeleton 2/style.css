@@ -66,6 +66,19 @@ section img, video {
 	border-radius: 5px;
 	margin-bottom: 1em;
 }
+
+th {
+	text-align: left;
+}
+
+td:nth-of-type(1) {
+	width: 20em;
+}
+
+td {
+	width: 4em;
+}
+
 video {
 	width:100%;
 }

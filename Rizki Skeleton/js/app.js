@@ -6,22 +6,23 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 	// Schedule data object
 	FRISBEEAPP.schedule = {
-		title:'Pool A - Schedule',
-		description:'Hier vindt u het speelschema van pool A',
+		// title:'Pool A - Schedule',
+		// description:'Hier vindt u het speelschema van pool A',
 		schedule: [
-			{ date: "Monday, 9:00am", team1: "Chasing", team1Score: "13", team2: "Amsterdam Money Gang", team2Score: "9"},
-			{ date: "Monday, 9:00am", team1: "Boomsquad", team1Score: "15", team2: "Beast Amsterdam", team2Score: "11"},
-			{ date: "Monday, 10:00am", team1: "Beast Amsterdam", team1Score: "14", team2: "Amsterdam Money Gang", team2Score: "12"},
-			{ date: "Monday, 10:00am", team1: "Chasing", team1Score: "5", team2: "Burning Snow", team2Score: "15"},
-			{ date: "Monday, 11:00am", team1: "Boomsquad", team1Score: "11", team2: "Amsterdam Money Gang", team2Score: "15"},    
-			{ date: "Monday, 11:00am", team1: "Burning Snow", team1Score: "15", team2: "Beast Amsterdam", team2Score: "6"},
-			{ date: "Monday, 12:00pm", team1: "Chasing", team1Score: "8", team2: "Beast Amsterdam", team2Score: "15"},
-			{ date: "Monday, 12:00pm", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"},
-			{ date: "Monday, 1:00pm", team1: "Chasing", team1Score: "15", team2: "Boomsquad", team2Score: "14"},
-			{ date: "Monday, 1:00pm", team1: "Burning Snow", team1Score: "15", team2: "Amsterdam Money Gang", team2Score: "11"}
-			
+
 		]
 	};
+
+			// { date: "Monday, 9:00am", team1: "Chasing", team1Score: "13", team2: "Amsterdam Money Gang", team2Score: "9"},
+			// { date: "Monday, 9:00am", team1: "Boomsquad", team1Score: "15", team2: "Beast Amsterdam", team2Score: "11"},
+			// { date: "Monday, 10:00am", team1: "Beast Amsterdam", team1Score: "14", team2: "Amsterdam Money Gang", team2Score: "12"},
+			// { date: "Monday, 10:00am", team1: "Chasing", team1Score: "5", team2: "Burning Snow", team2Score: "15"},
+			// { date: "Monday, 11:00am", team1: "Boomsquad", team1Score: "11", team2: "Amsterdam Money Gang", team2Score: "15"},    
+			// { date: "Monday, 11:00am", team1: "Burning Snow", team1Score: "15", team2: "Beast Amsterdam", team2Score: "6"},
+			// { date: "Monday, 12:00pm", team1: "Chasing", team1Score: "8", team2: "Beast Amsterdam", team2Score: "15"},
+			// { date: "Monday, 12:00pm", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"},
+			// { date: "Monday, 1:00pm", team1: "Chasing", team1Score: "15", team2: "Boomsquad", team2Score: "14"},
+			// { date: "Monday, 1:00pm", team1: "Burning Snow", team1Score: "15", team2: "Amsterdam Money Gang", team2Score: "11"}
 
 	//Game data object
 	FRISBEEAPP.game = {
@@ -149,10 +150,10 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	FRISBEEAPP.ajax = {
 		init: function () {
 			this.getObjectsForPools("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
+			this.getObjectsForSchedule("https://api.leaguevine.com/v1/games/?tournament_id=19389&access_token=abdbb7e1db");
 		},
 
 		getObjectsForPools: function (url) {
-
 			promise.get(url).then(function(error, text, xhr){
 				if (error) {
        				alert('Error ' + xhr.status);
@@ -183,8 +184,32 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						 	ga: parsedObject.objects[i].standings[c].points_allowed,
 						 	balance: parsedObject.objects[i].standings[c].plus_minus
 						};
-					}
-					
+					}	
+				}
+				FRISBEEAPP.router.init();
+			});
+		},
+
+		getObjectsForSchedule: function (url) {
+			promise.get(url).then(function(error, text, xhr) {
+				if (error) {
+       				alert('Error ' + xhr.status);
+        			return;
+    			}	
+
+				var parsedObject = JSON.parse(text);
+
+				console.log(parsedObject);
+
+				for (var i = 0; i < parsedObject.objects.length; i++) {
+					FRISBEEAPP.schedule.schedule[i] = {
+						date: parsedObject.objects[i].start_time,
+						team1: parsedObject.objects[i].team_1.name,
+						team1Score: parsedObject.objects[i].team_1_score,
+						team2: parsedObject.objects[i].team_2.name,
+						team2Score: parsedObject.objects[i].team_2_score
+					};
+					console.log(parsedObject.objects[i].team_1.name);
 				}
 				FRISBEEAPP.router.init();
 			});
