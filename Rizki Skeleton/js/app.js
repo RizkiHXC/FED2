@@ -6,8 +6,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 	// Schedule data object
 	FRISBEEAPP.schedule = {
-		// title:'Pool A - Schedule',
-		// description:'Hier vindt u het speelschema van pool A',
 		schedule: [
 
 		]
@@ -150,7 +148,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	FRISBEEAPP.ajax = {
 		init: function () {
 			this.getObjectsForPools("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
-			this.getObjectsForSchedule("https://api.leaguevine.com/v1/games/?tournament_id=19389&access_token=abdbb7e1db");
+			this.getObjectsForSchedule("https://api.leaguevine.com/v1/games/?tournament_id=19389&limit=100&access_token=6c8247a098");
 		},
 
 		getObjectsForPools: function (url) {
@@ -198,8 +196,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
     			}	
 
 				var parsedObject = JSON.parse(text);
-
-				console.log(parsedObject);
 
 				for (var i = 0; i < parsedObject.objects.length; i++) {
 					FRISBEEAPP.schedule.schedule[i] = {
