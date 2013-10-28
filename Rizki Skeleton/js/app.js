@@ -147,11 +147,11 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 	FRISBEEAPP.ajax = {
 		init: function () {
-			this.getObjectsForPools("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
+			this.getObjectsForRanking("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
 			this.getObjectsForSchedule("https://api.leaguevine.com/v1/games/?tournament_id=19389&limit=100&access_token=6c8247a098");
 		},
 
-		getObjectsForPools: function (url) {
+		getObjectsForRanking: function (url) {
 			promise.get(url).then(function(error, text, xhr){
 				if (error) {
        				alert('Error ' + xhr.status);
@@ -180,7 +180,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						 	lost: parsedObject.objects[i].standings[c].losses,
 						 	gs: parsedObject.objects[i].standings[c].points_scored,
 						 	ga: parsedObject.objects[i].standings[c].points_allowed,
-						 	balance: parsedObject.objects[i].standings[c].plus_minus
+						 	balance: parsedObject.objects[i].standings[c].plus_minus,
 						};
 					}	
 				}
@@ -199,14 +199,16 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 				for (var i = 0; i < parsedObject.objects.length; i++) {
 					FRISBEEAPP.schedule.schedule[i] = {
+						poolID: parsedObject.objects[i].pool.name,
 						date: parsedObject.objects[i].start_time,
 						team1: parsedObject.objects[i].team_1.name,
 						team1Score: parsedObject.objects[i].team_1_score,
 						team2: parsedObject.objects[i].team_2.name,
-						team2Score: parsedObject.objects[i].team_2_score
+						team2Score: parsedObject.objects[i].team_2_score,
+						gameID: parsedObject.objects[i].id
 					};
-					console.log(parsedObject.objects[i].team_1.name);
 				}
+				console.log(FRISBEEAPP.schedule.schedule);
 				FRISBEEAPP.router.init();
 			});
 		}

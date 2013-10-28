@@ -133,7 +133,7 @@ article#content {
 		margin-bottom:3em;
 	}
 
-article > section > section > section > h1 {
+article > section > section > section > h1:nth-of-type(2) {
 	color: rgba(255, 255, 255, 1);
 	background-color: #259433;
 }
