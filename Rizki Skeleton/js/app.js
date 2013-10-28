@@ -65,7 +65,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
             if (!route) {
             	sections[0].classList.add('active');
             }
-
 		}
 	};
 
@@ -82,19 +81,20 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 	FRISBEEAPP.ajax = {
 		init: function () {
-			this.getObjectsForRanking("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
 			this.getObjectsForSchedule("https://api.leaguevine.com/v1/games/?tournament_id=19389&limit=100&access_token=6c8247a098");
+			this.getObjectsForRanking("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
 		},
 
 		getObjectsForRanking: function (url) {
+			document.getElementById("lol").setAttribute("style", "display:block");
+
 			// data is duidelijker als text
 			promise.get(url).then(function(error, data, xhr){
 				if (error) {
        				alert('Error ' + xhr.status);
         			return;
     			}	
-
-				// var parsedObject = JSON.parse(text);
+				
 				data = JSON.parse(data)
 				// Zo hoef je geen nieuwe var aan te maken en blijft de var duidelijk =)
 
@@ -120,11 +120,14 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						};
 					}	
 				}
+				document.getElementById("lol").setAttribute("style", "display:none");
 				FRISBEEAPP.router.init();
 			});
 		},
 
 		getObjectsForSchedule: function (url) {
+			document.getElementById("schedulespinner").setAttribute("style", "display:block");
+			document.querySelector('article > section:nth-of-type(1) > section').setAttribute("style", "display:none");
 			// Zie functie hierboven voor zelfde verandering (data)
 			promise.get(url).then(function(error, data, xhr) {
 				if (error) {
@@ -136,7 +139,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 				for (var i = 0; i < data.objects.length; i++) {
 					FRISBEEAPP.schedule.schedule[i] = {
-						poolID: data.objects[i].pool.name,
+						poolID: "Pool " + data.objects[i].pool.name,
 						date: data.objects[i].start_time,
 						team1: data.objects[i].team_1.name,
 						team1Score: data.objects[i].team_1_score,
@@ -145,7 +148,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						gameID: data.objects[i].id
 					};
 				}
-
+				document.getElementById("schedulespinner").setAttribute("style", "display:none");
+				document.querySelector('article > section:nth-of-type(1) > section').setAttribute("style", "display:block");
 				FRISBEEAPP.schedule.schedule.reverse();
 				FRISBEEAPP.router.init();
 			});

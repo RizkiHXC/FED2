@@ -3,12 +3,12 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Web App Skeleton v 0.3</title>
+	<title>AMSTERDAM ULTIMATE FRISBEE</title>
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<header>
-		<h1>Web App Skeleton</h1>
+		<h1>AMSTERDAM ULTIMATE FRISBEE</h1>
 		<nav>
 			<ul>
 				<li><a href="#/schedule" data>Schedule</a></li>
@@ -19,16 +19,17 @@
 	</header>
 	
 	<article id="content" class="col">
+		<div id ="schedulespinner" class="spinner"></div>
 		<section data-route="schedule" class="active">
 			<h1 data-bind="title"></h1>
 			<p data-bind="description"></p>
-			 <section data-bind="schedule">
+			<section data-bind="schedule">
 			    <section>
 			      <h1 data-bind="poolID"></h1>
 			      <h1 data-bind="date"></h1>
 			      <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label>v.</label> <label data-bind="team2Score"></label> <label data-bind="team2"></label><a href=""><img src="images/button.png" id="changescore"></img></a>
 			    </section>
-			  </section>
+			</section>
 		</section>
 
 		<section data-route="game">
@@ -36,12 +37,13 @@
 			<p data-bind="description"></p>
 			<section data-bind="game">
 				<section>
-					<label data-bind="score"></label> <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label> - </label> <label data-bind="team2"></label> <label data-bind="team2Score"></label>
+					<input type="number" min="5" max="18" step="0.5" value="9" name="shoe-size"> </input>
 				</section>
 			</section>
 		</section>
 
 		<section data-route="ranking">
+			<div id ="lol" class="spinner"></div>
 			<section data-bind="rank">			
 				<h1 data-bind="poolID"></h1>
 				
