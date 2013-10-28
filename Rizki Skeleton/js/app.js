@@ -18,12 +18,27 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		rank: [
 		]
 	};
+
+	FRISBEEAPP.utilities = {
+		spinner: {
+			spinnerObject: document.getElementById("spinner"), 
+			show: function () {
+				this.spinnerObject.className = "spin";
+			},
+			hide: function () {
+				this.spinnerObject.className ="stopspin";
+			}
+		}
+	};
 	
 	// Controller Init
 	FRISBEEAPP.controller = {
 		init: function () {
 			// Initialize router
 			FRISBEEAPP.ajax.init();
+			//FRISBEEAPP.router.init();
+
+			//SWITCH TO ROUTER FIRSTTTTTT
 		}
 	};
 
@@ -86,8 +101,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		},
 
 		getObjectsForRanking: function (url) {
-			document.getElementById("lol").setAttribute("style", "display:block");
-
 			// data is duidelijker als text
 			promise.get(url).then(function(error, data, xhr){
 				if (error) {
@@ -120,13 +133,11 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						};
 					}	
 				}
-				document.getElementById("lol").setAttribute("style", "display:none");
 				FRISBEEAPP.router.init();
 			});
 		},
 
 		getObjectsForSchedule: function (url) {
-			document.getElementById("schedulespinner").setAttribute("style", "display:block");
 			document.querySelector('article > section:nth-of-type(1) > section').setAttribute("style", "display:none");
 			// Zie functie hierboven voor zelfde verandering (data)
 			promise.get(url).then(function(error, data, xhr) {
@@ -148,7 +159,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						gameID: data.objects[i].id
 					};
 				}
-				document.getElementById("schedulespinner").setAttribute("style", "display:none");
+				FRISBEEAPP.utilities.spinner.hide();
 				document.querySelector('article > section:nth-of-type(1) > section').setAttribute("style", "display:block");
 				FRISBEEAPP.schedule.schedule.reverse();
 				FRISBEEAPP.router.init();
