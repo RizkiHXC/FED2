@@ -146,9 +146,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					};
 				}
 
-				FRISBEEAPP.schedule.schedule.sort(function(a,b) {
-  					return parseInt(a.poolID,10) - parseInt(b.poolID,10);
-				});
+				FRISBEEAPP.schedule.schedule.reverse();
 				FRISBEEAPP.router.init();
 			});
 		}

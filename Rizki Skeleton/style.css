@@ -8,15 +8,21 @@ body {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 	font-weight: 300;
 	color:#333;
-	background-color: rgba(0, 240, 0, .1);
+	background-color: white;
 }
+
+header {
+	background-color: green;
+	padding: 0;
+
+}
+
 h1 {
-	text-shadow: 1px 1px 1px #fff;
 	font-family: "HelveticaNeue-Bold";
 }
 
 
-p {
+p {3
 
 }
 a {
@@ -67,6 +73,15 @@ section img, video {
 	margin-bottom: 1em;
 }
 
+#changescore {
+	width: 6em;
+	height: 4em;
+	box-shadow: 0 0 0;
+	border-radius: 0;
+	border: 0;
+	float: right;
+}
+
 th {
 	text-align: left;
 }
@@ -96,21 +111,11 @@ header {
 	position:relative;
 	padding:0 .5em;
 }
-	header img {
-		opacity:.3;
-		width:50px;
-		position:absolute;
-		top:-.8em;
-		-webkit-transition:all 1s ease;
-	}
-	header img:hover {
-		opacity:1;
-	}
 	header h1 {
-		font-family: "Marker Felt";
+		font-family: "HelveticaNeue-Light";
 		color:#000;
 		font-size: 1.6em;
-		margin-left:2.5em;
+		margin-left: 42%;
 
 	}
 
@@ -132,6 +137,7 @@ article#content {
 		list-style: none;
 		margin-bottom:3em;
 	}
+
 
 article > section > section > section > h1:nth-of-type(2) {
 	color: rgba(255, 255, 255, 1);
