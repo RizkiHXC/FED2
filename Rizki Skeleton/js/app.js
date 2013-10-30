@@ -50,6 +50,10 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				},
 			    '/game/:gameID': function(gameID) {
 			    	FRISBEEAPP.ajax.getObjectsForGame(gameID);
+<<<<<<< HEAD
+=======
+			    	FRISBEEAPP.page.render('game');
+>>>>>>> 30a405413e037961b305a077fa6da240268b1524
 			    },
 
 			    '/ranking': function() {
@@ -95,6 +99,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 							return "#/game/" + this.gameID;
 						}
 					}
+<<<<<<< HEAD
 				},
 
 				game: {
@@ -110,6 +115,11 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					}
 				}
 			}
+=======
+				}
+			}
+
+>>>>>>> 30a405413e037961b305a077fa6da240268b1524
 			Transparency.render(qwery('[data-route='+route+']')[0], data, directives);
 			FRISBEEAPP.router.change();
 			
@@ -198,7 +208,10 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		},
 
 		getObjectsForGame: function (gameID) {
+<<<<<<< HEAD
 			FRISBEEAPP.utilities.spinner.show();
+=======
+>>>>>>> 30a405413e037961b305a077fa6da240268b1524
 			var feed = "https://api.leaguevine.com/v1/games/" + gameID + "/";
 
 			promise.get(feed).then(function(error, data, xhr) {
@@ -213,8 +226,12 @@ var FRISBEEAPP = FRISBEEAPP || {};
     				team1Score: data.team_1_score,
     				team2Score: data.team_2_score
     			}
+<<<<<<< HEAD
     			FRISBEEAPP.page.render('game');
     			FRISBEEAPP.utilities.spinner.hide();
+=======
+    			console.log(FRISBEEAPP.game.game);
+>>>>>>> 30a405413e037961b305a077fa6da240268b1524
     		});
 		}
 	}
