@@ -50,10 +50,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				},
 			    '/game/:gameID': function(gameID) {
 			    	FRISBEEAPP.ajax.getObjectsForGame(gameID);
-<<<<<<< HEAD
-=======
-			    	FRISBEEAPP.page.render('game');
->>>>>>> 30a405413e037961b305a077fa6da240268b1524
 			    },
 
 			    '/ranking': function() {
@@ -61,30 +57,27 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			    },
 			    '*': function() {
 			    	FRISBEEAPP.ajax.getObjectsForSchedule();
-			    	FRISBEEAPP.page.render('schedule');
 			    }
 			});
 		},
 
 		change: function () {
-            var route = window.location.hash.slice(2),
-                sections = qwery('section'),
-                section = qwery('[data-route=' + route + ']')[0];
+			var sections = qwery('section[data-route]'),
+            	route 	 = window.location.hash.slice(2);
+        	
+        	for(var i = 0; i < sections.length; i++) {
+        		sections[i].classList.remove('active');
+        	}
+			
+			//Check if slash is there or not
+			if(route.search("/") != -1)
+				route = route.substring(0, route.search("/"));
+        	
+        	var sectionToChange = qwery('[data-route=' + route + ']')[0];
 
-            // Show active section, hide all other
-            // If section is true, remove active class in all sections then add active to section
-            if (section) {
-            	for (var i=0; i < sections.length; i++){
-            		sections[i].classList.remove('active');
-            	}
-            	section.classList.add('active');
-            }
-
-            // Default route
-            if (!route) {
-            	sections[0].classList.add('active');
-            }
+        	sectionToChange.classList.add('active');
 		}
+
 	};
 
 	// Pages
@@ -99,7 +92,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 							return "#/game/" + this.gameID;
 						}
 					}
-<<<<<<< HEAD
 				},
 
 				game: {
@@ -115,11 +107,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					}
 				}
 			}
-=======
-				}
-			}
-
->>>>>>> 30a405413e037961b305a077fa6da240268b1524
 			Transparency.render(qwery('[data-route='+route+']')[0], data, directives);
 			FRISBEEAPP.router.change();
 			
@@ -170,9 +157,10 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 		getObjectsForSchedule: function () {
 			var feed = "https://api.leaguevine.com/v1/games/?tournament_id=19389&limit=100&access_token=6c8247a098";
-
+			document.querySelector('article > section:nth-of-type(1) > section').classList.remove("show");
+			document.querySelector('article > section:nth-of-type(1) > section').classList.add("hide");
 			FRISBEEAPP.utilities.spinner.show();
-			document.querySelector('article > section:nth-of-type(1) > section').setAttribute("style", "display:none");
+			
 			// Zie functie hierboven voor zelfde verandering (data)
 			promise.get(feed).then(function(error, data, xhr) {
 				if (error) {
@@ -183,9 +171,17 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				data = JSON.parse(data);
 
 				for (var i = 0; i < data.objects.length; i++) {
+					var year = data.objects[i].start_time.substr(0,4);
+					var month = data.objects[i].start_time.substr(5,2);
+					var day = data.objects[i].start_time.substr(8,2);
+					var hour = data.objects[i].start_time.substr(11,2)
+					var minutes = data.objects[i].start_time.substr(14,2)
+
+					console.log(day);
+
 					FRISBEEAPP.schedule.schedule[i] = {
 						poolID: "Pool " + data.objects[i].pool.name,
-						date: data.objects[i].start_time,
+						date: day + "-" + month + "-" + year + " " + hour + ":" + minutes,
 						team1: data.objects[i].team_1.name,
 						team1Score: data.objects[i].team_1_score,
 						team2: data.objects[i].team_2.name,
@@ -201,17 +197,15 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					}
 				}
 				FRISBEEAPP.utilities.spinner.hide();
-				document.querySelector('article > section:nth-of-type(1) > section').setAttribute("style", "display:block");
+				document.querySelector('article > section:nth-of-type(1) > section').classList.remove("hide");
+				document.querySelector('article > section:nth-of-type(1) > section').classList.add("show");
 				FRISBEEAPP.schedule.schedule.reverse();
 				FRISBEEAPP.page.render('schedule');
 			});
 		},
 
 		getObjectsForGame: function (gameID) {
-<<<<<<< HEAD
 			FRISBEEAPP.utilities.spinner.show();
-=======
->>>>>>> 30a405413e037961b305a077fa6da240268b1524
 			var feed = "https://api.leaguevine.com/v1/games/" + gameID + "/";
 
 			promise.get(feed).then(function(error, data, xhr) {
@@ -226,12 +220,9 @@ var FRISBEEAPP = FRISBEEAPP || {};
     				team1Score: data.team_1_score,
     				team2Score: data.team_2_score
     			}
-<<<<<<< HEAD
+    			
     			FRISBEEAPP.page.render('game');
     			FRISBEEAPP.utilities.spinner.hide();
-=======
-    			console.log(FRISBEEAPP.game.game);
->>>>>>> 30a405413e037961b305a077fa6da240268b1524
     		});
 		}
 	}

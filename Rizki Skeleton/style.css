@@ -75,6 +75,14 @@ section img, video {
 	float: right;
 }
 
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+
 th {
 	text-align: left;
 }
