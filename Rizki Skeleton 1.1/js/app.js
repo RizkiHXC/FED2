@@ -7,11 +7,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	// Schedule data object
 	FRISBEEAPP.schedule = {
 		schedule: [
-		]
-	};
 
-	FRISBEEAPP.game = {
-		game: [
 		]
 	};
 
@@ -47,13 +43,15 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	  		routie({
 			    '/schedule': function() {
 			    	FRISBEEAPP.ajax.getObjectsForSchedule();
+			    	//FRISBEEAPP.page.render('schedule');
 				},
-			    '/game/:gameID': function(gameID) {
-			    	FRISBEEAPP.ajax.getObjectsForGame(gameID);
+			    '/game': function() {
+			    	FRISBEEAPP.page.render('game');
 			    },
 
 			    '/ranking': function() {
 			    	FRISBEEAPP.ajax.getObjectsForRanking();
+			    	FRISBEEAPP.page.render('ranking');
 			    },
 			    '*': function() {
 			    	FRISBEEAPP.ajax.getObjectsForSchedule();
@@ -88,35 +86,17 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		render: function (route) {
 			var data = FRISBEEAPP[route];
 
-			var directives = {
-				schedule: {
-					link: {
-						href: function(params) {
-							return "#/game/" + this.gameID;
-						}
-					}
-				},
-
-				game: {
-					team1Score: {
-						value: function (params) {
-							return this.team1Score;
-						}
-					},
-					team2Score: {
-						value: function (params) {
-							return this.team2Score;
-						}
-					}
-				}
-			}
-			Transparency.render(qwery('[data-route='+route+']')[0], data, directives);
+			Transparency.render(qwery('[data-route='+route+']')[0], data);
 			FRISBEEAPP.router.change();
-			
 		}
 	}
 
 	FRISBEEAPP.ajax = {
+		init: function () {
+			//this.getObjectsForSchedule("https://api.leaguevine.com/v1/games/?tournament_id=19389&limit=100&access_token=6c8247a098");
+			//this.getObjectsForRanking("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
+		},
+
 		getObjectsForRanking: function () {
 			var feed = "https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D";
 
@@ -139,6 +119,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						poolID: "Pool " + poolName
 					};
 
+
+
 					FRISBEEAPP.ranking.rank[i].teams = [];
 
 					// For elke team binnen een pool
@@ -154,7 +136,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					}	
 				}
 				FRISBEEAPP.utilities.spinner.hide();
-				FRISBEEAPP.page.render('ranking');
 			});
 		},
 
@@ -185,6 +166,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 					if (i < data.objects.length - 1) {
 
+						//console.log(data.objects[i].pool.name + " - " + data.objects[i + 1].pool.name);
+
 						if (data.objects[i].pool.name  == data.objects[i + 1].pool.name) {
 							FRISBEEAPP.schedule.schedule[i].poolID = "";
 						}
@@ -195,27 +178,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				FRISBEEAPP.schedule.schedule.reverse();
 				FRISBEEAPP.page.render('schedule');
 			});
-		},
-
-		getObjectsForGame: function (gameID) {
-			FRISBEEAPP.utilities.spinner.show();
-			var feed = "https://api.leaguevine.com/v1/games/" + gameID + "/";
-
-			promise.get(feed).then(function(error, data, xhr) {
-				if (error) {
-       				alert('Error ' + xhr.status);
-        			return;
-    			}
-
-    			data = JSON.parse(data);	
-
-    			FRISBEEAPP.game.game = {
-    				team1Score: data.team_1_score,
-    				team2Score: data.team_2_score
-    			}
-    			FRISBEEAPP.page.render('game');
-    			FRISBEEAPP.utilities.spinner.hide();
-    		});
 		}
 	}
 

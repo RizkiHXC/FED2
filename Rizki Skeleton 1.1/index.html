@@ -26,15 +26,16 @@
 			    <section>
 			      <h1 data-bind="poolID"></h1>
 			      <h1 data-bind="date"></h1>
-			      <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label>v.</label> <label data-bind="team2Score"></label> <label data-bind="team2"></label> <a data-bind="link"><img src="images/button.png" id="changescore"></img></a>
+			      <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label>v.</label> <label data-bind="team2Score"></label> <label data-bind="team2"></label><a href=""><img src="images/button.png" id="changescore"></img></a>
 			    </section>
 			</section>
 		</section>
 
 		<section data-route="game">
+			<h1 data-bind="title"></h1>
+			<p data-bind="description"></p>
 			<section data-bind="game">
 				<section>
-					<label> Score team 1: </label><input type="number" data-bind="team1Score" name="team1Score" id="team1Score" min="1" max="100" /> v. <input type ="number" data-bind="team2Score" name="team2Score" id="team2Score" min"1" max="100" /> <label> :Score team 2
 				</section>
 			</section>
 		</section>
@@ -42,6 +43,7 @@
 		<section data-route="ranking">
 			<section data-bind="rank">			
 				<h1 data-bind="poolID"></h1>
+				
 				<table>
 					<tr>
 						<th>Team</th>
