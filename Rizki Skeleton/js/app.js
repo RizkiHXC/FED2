@@ -46,7 +46,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			// Initialize router
 			FRISBEEAPP.router.init();
 			FRISBEEAPP.gestures.init();
-			FRISBEEAPP.scroller.init();
 		}
 	};
 
@@ -325,28 +324,10 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				Fader.fadeOutWithId("changescore", 1);
 				alert('swipe');
 			});
-		}
+		},
 	}
 
-	FRISBEEAPP.scroller = {
-		// init: function () {
-		// 	var myScroll = new iScroll('wrap');
-			
-		// 	var myScroll,
-		// 	pullDownEl, pullDownOffset,
-		// 	pullUpEl, pullUpOffset,
-		// 	generatedCount = 0;
 
-		// 	console.log('yolo');
-		// 	function pullDownAction () {
-		// 		setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-		// 			console.log('swag');
-					
-		// 			myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
-		// 		}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
-		// 	}
-		// }
-	}
 
 	// If DOM == ready, fire function:
 	domready(function () {
