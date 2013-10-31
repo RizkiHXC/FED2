@@ -57,6 +57,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			    },
 			    '*': function() {
 			    	FRISBEEAPP.ajax.getObjectsForSchedule();
+			    	FRISBEEAPP.page.render("schedule");
 			    }
 			});
 		},
@@ -70,12 +71,18 @@ var FRISBEEAPP = FRISBEEAPP || {};
         	}
 			
 			//Check if slash is there or not
-			if(route.search("/") != -1)
+			if(route.search("/") != -1) {
 				route = route.substring(0, route.search("/"));
+			}
         	
         	var sectionToChange = qwery('[data-route=' + route + ']')[0];
 
         	sectionToChange.classList.add('active');
+
+        	// default route
+        	if (!route) {
+        		sections[0].classList.add('active');
+        	}
 		}
 
 	};
@@ -176,8 +183,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					var day = data.objects[i].start_time.substr(8,2);
 					var hour = data.objects[i].start_time.substr(11,2)
 					var minutes = data.objects[i].start_time.substr(14,2)
-
-					console.log(day);
 
 					FRISBEEAPP.schedule.schedule[i] = {
 						poolID: "Pool " + data.objects[i].pool.name,
