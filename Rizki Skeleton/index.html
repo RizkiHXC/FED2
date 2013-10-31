@@ -22,7 +22,7 @@
 	<article id="content" class="col">
 		<section data-route="schedule" class="active">
 			<section data-bind="schedule">
-			    <section>
+			    <section class="gesture">
 			      <h1 data-bind="poolID"></h1>
 			      <h1 data-bind="date"></h1>
 			      <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label>v.</label> <label data-bind="team2Score"></label> <label data-bind="team2"></label> <a data-bind="link"><img src="images/button.png" id="changescore"></img></a>
@@ -33,7 +33,10 @@
 		<section data-route="game">
 			<section data-bind="game">
 				<section>
-					<label> Score team 1: </label><input type="number" data-bind="team1Score" name="team1Score" id="team1Score" min="1" max="100" /> v. <input type ="number" data-bind="team2Score" name="team2Score" id="team2Score" min"1" max="100" /> <label> :Score team 2
+					<label data-bind="team1Name"></label><input type="number" data-bind="team1Score" name="team1Score" id="team1Score" min="1" max="100" /><label> v. </label><input type ="number" data-bind="team2Score" name="team2Score" id="team2Score" min"1" max="100" /> <label data-bind="team2Name"></label>
+					<p>
+						<a href="javascript:void(0);" onclick="FRISBEEAPP.ajax.saveNewScore();"><label>Post Score</label></a>
+					</p>
 				</section>
 			</section>
 		</section>
@@ -73,6 +76,7 @@
 	<script src="js/library/transparancy.min.js" type="text/javascript"></script>
 	<script src="js/library/promise.min.js" type="text/javascript"></script>
 	<script src="js/library/fader.min.js"></script>
+	<script src="js/library/quo.js"></script>
 
 	<!-- Application -->
 	<script src="js/app.js"></script>
