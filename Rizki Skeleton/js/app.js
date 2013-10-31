@@ -46,6 +46,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			// Initialize router
 			FRISBEEAPP.router.init();
 			FRISBEEAPP.gestures.init();
+			FRISBEEAPP.scroller.init();
 		}
 	};
 
@@ -262,8 +263,24 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			var team1Score = document.getElementById('team1Score').value;
 			var team2Score = document.getElementById('team2Score').value;
 
-			//Fire updatenewScore function
-			FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, false);
+			//Grab value of radio button
+			var radioChecked = document.querySelector('input[name="is_final"]:checked').value;
+
+			var isFinal = false;
+
+			if (radioChecked == "yes") {
+				isFinal = true;
+
+				if(confirm("Once you agree that the game has ended, you will not be able to update the score anymore, are you sure you want to proceed?")) {
+					//Fire updatenewScore function
+					FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, isFinal);
+				} 
+			}
+
+			if (radioChecked == "no") {
+				//Fire updatenewScore function
+				FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, isFinal);
+			}
 		},
 
 		updateNewScore: function (gameID, team1Score, team2Score, isFinal) {
@@ -306,9 +323,29 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		init: function () {
 			$$(".gesture").swipe(function () {
 				Fader.fadeOutWithId("changescore", 1);
-				console.log('swipe');
+				alert('swipe');
 			});
 		}
+	}
+
+	FRISBEEAPP.scroller = {
+		// init: function () {
+		// 	var myScroll = new iScroll('wrap');
+			
+		// 	var myScroll,
+		// 	pullDownEl, pullDownOffset,
+		// 	pullUpEl, pullUpOffset,
+		// 	generatedCount = 0;
+
+		// 	console.log('yolo');
+		// 	function pullDownAction () {
+		// 		setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+		// 			console.log('swag');
+					
+		// 			myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
+		// 		}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+		// 	}
+		// }
 	}
 
 	// If DOM == ready, fire function:
