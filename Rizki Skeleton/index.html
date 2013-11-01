@@ -22,18 +22,18 @@
 	<article id="content" class="col">
 		<section data-route="schedule" class="active">
 			<section data-bind="schedule">
-			    <section class="gesture">
+			    <section id="swipeleft">
 		      		<h1 data-bind="poolID"></h1>
 		     		<h1 data-bind="date"></h1>
 		     		<div id="wholegroup"> 
-		     			<div id="teamsuitlijnendeze"><label data-bind="team1"></label></div>
+		     			<div id="outline"><label data-bind="team1"></label></div>
 		     	 		<div id="scoregroup">
 		     	 			<label data-bind="team1Score"></label> <label>v.</label>	<label data-bind="team2Score"></label>
 		     	 		</div>
-		     	 	 	<div id="teamsuitlijnendeze"><label data-bind="team2"></label></div>
+		     	 	 	<div id="outline"><label data-bind="team2"></label></div>
 		     		 </div>
 
-		     		<div class="banaan">
+		     		<div class="score">
 		     			<a data-bind="link" id="changescore"><label>Change Score </label></a>
 		     		</div>
 			    </section>
@@ -56,7 +56,7 @@
 		</section>
 
 		<section data-route="ranking">
-			<section data-bind="rank">			
+			<section data-bind="rank" id="swiperight">			
 				<h1 data-bind="poolID"></h1>
 				<table>
 					<tr>

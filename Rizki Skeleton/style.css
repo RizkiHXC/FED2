@@ -188,7 +188,7 @@ article > section:nth-of-type(1) > section > section:nth-of-type(even) {
 	width: 5em;
 }
 
-#teamsuitlijnendeze {
+#outline {
 	display: inline-block;
 	width: 30%;
 	font-size: 1em;
@@ -420,11 +420,12 @@ and (min-width : 1024px) {
 			margin-right:3%;
 		}
 
-	div.banaan {
+	div.score {
 		float: left;
 		text-align: center;
 		width: 100%;
 	}
+
 	#changescore {
 		float: none;
 		width: 200px;
@@ -455,7 +456,7 @@ and (min-width : 1024px) {
 		width: 5em;
 	}
 
-	#teamsuitlijnendeze {
+	#outline {
 		display: inline-block;
 		width: 30%;
 		font-size: 1.5em;

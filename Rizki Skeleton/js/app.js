@@ -341,9 +341,33 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 	FRISBEEAPP.gestures = {
 		init: function () {
-			$$(".gesture").swipe(function () {
-				Fader.fadeOutWithId("changescore", 1);
-				alert('swipe');
+			$$("#swipeleft").swipeLeft(function () {
+				//Get whole URL
+				var url = document.URL;
+				//Look for hash, cut 2 characters from there and take rest
+				var hash = window.location.hash.slice(2);
+				//Get base url, without anything after hash
+				var baseUrl;
+
+				if (hash != "schedule") { 
+					baseUrl = "file:///Users/indoboy_rizki/Documents/Hogeschool%20van%20Amsterdam/Leerjaar%203/FED2/RD/Rizki%20Skeleton/index.html#/";
+				} else {
+					baseUrl = url.substring(0, url.search(hash));
+				}
+
+				//Go to other page
+				window.location.href = baseUrl + "ranking";
+				FRISBEEAPP.ajax.getObjectsForRanking;
+			});
+
+			$$("#swiperight").swipeRight(function () {
+				var url = document.URL;
+				var hash = window.location.hash.slice(2);
+
+				var baseUrl = url.substring(0, url.search(hash));
+
+				window.location.href = baseUrl + "schedule";
+				FRISBEEAPP.ajax.getObjectsForRanking;
 			});
 		},
 	}
