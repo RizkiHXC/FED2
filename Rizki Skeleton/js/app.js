@@ -25,17 +25,36 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	FRISBEEAPP.utilities = {
 		spinner: {
 			spinnerObject: document.getElementById("spinner"), 
+
 			show: function () {
-				this.spinnerObject.className = "spin";
+				FRISBEEAPP.utilities.fader.fadeOut(.5, function () {
+					FRISBEEAPP.utilities.spinner.spinnerObject.className = "spin";
+				});
 			},
 			hide: function () {
-				this.spinnerObject.className ="stopspin";
+				FRISBEEAPP.utilities.fader.fadeIn(.5, function () {
+					FRISBEEAPP.utilities.spinner.spinnerObject.className ="stopspin";
+				});
 			}
 		},
 
 		error: {
 			alert: function (reason, message) {
 				alert(reason + " " + message);
+			}
+		},
+
+		fader: {
+			fadeIn: function (duration, callback) {
+				Fader.fadeInWithId("content", duration);
+
+				callback();
+			},
+
+			fadeOut: function (duration, callback) {
+				Fader.fadeOutWithId("content", duration);
+
+				callback();
 			}
 		}
 	};
@@ -74,7 +93,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
             	route 	 = window.location.hash.slice(2);
         	
         	for(var i = 0; i < sections.length; i++) {
-        		sections[i].classList.remove('active');
+        			sections[i].classList.remove('active');
         	}
 			
 			//Check if slash is there or not for gameID
@@ -85,7 +104,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
         	var sectionToChange = qwery('[data-route=' + route + ']')[0];
 
         	sectionToChange.classList.add('active');
-
+ 
         	// If no route is found, default is schedule
         	if (!route) {
         		sections[0].classList.add('active');
@@ -126,7 +145,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			}
 			Transparency.render(qwery('[data-route='+route+']')[0], data, directives);
 			FRISBEEAPP.router.change();
-			
 		}
 	}
 
@@ -175,8 +193,11 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				//Shows elements after array has been filled
 				document.querySelector('article > section:nth-of-type(3) > section').classList.remove("hide");
 				document.querySelector('article > section:nth-of-type(3) > section').classList.add("show");
+
 				FRISBEEAPP.utilities.spinner.hide();
-				FRISBEEAPP.page.render('ranking');
+				FRISBEEAPP.page.render('ranking', function () {
+				});
+
 			});
 		},
 
