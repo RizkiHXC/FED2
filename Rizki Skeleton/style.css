@@ -24,7 +24,7 @@ a {
 	-webkit-transition:all .5s ease;
 }
 a:hover {
-	color:#ffb400;
+	color:#ff0000;
 	background-color: #f4f4f4;
 }
 ul {
@@ -71,9 +71,9 @@ section img, video {
 }
 
 #changescore {
-	width: 100%;
 	text-align: center;
 	float: left;
+	width: 100%;
 }
 
 .show {
@@ -177,12 +177,11 @@ article > section:nth-of-type(1) > section > section:nth-of-type(even) {
 #wholegroup {
 	text-align: center;
 	margin: 0 auto;
-	background: #fff;
 }
 
 #scoregroup {
 	font-weight: bold;
-	font-size: 4em;
+	font-size: 1.2em;
 	display: inline-block;
 	text-align: center;
 	padding-bottom: 1em;
@@ -192,7 +191,7 @@ article > section:nth-of-type(1) > section > section:nth-of-type(even) {
 #teamsuitlijnendeze {
 	display: inline-block;
 	width: 30%;
-	font-size: 1.5em;
+	font-size: 1em;
 }
 
 article > section:nth-of-type(1) > section > section > label:nth-of-type(1) {
@@ -421,15 +420,45 @@ and (min-width : 1024px) {
 			margin-right:3%;
 		}
 
-	#changescore {
-		width: 100%;
+	div.banaan {
+		float: left;
 		text-align: center;
+		width: 100%;
+	}
+	#changescore {
+		float: none;
+		width: 200px;
 	}
 
 	article > section:nth-of-type(2) > section > section > input {
 		width: 5em;
 		font-size: 1.5em;
 		text-align: right;
+	}
+
+	article > section:nth-of-type(1) > section > section > p {
+		width: 100%;
+		background-color: blue;
+	}
+
+	#wholegroup {
+	text-align: center;
+	margin: 0 auto;
+	}
+
+	#scoregroup {
+		font-weight: bold;
+		font-size: 4em;
+		display: inline-block;
+		text-align: center;
+		padding-bottom: 1em;
+		width: 5em;
+	}
+
+	#teamsuitlijnendeze {
+		display: inline-block;
+		width: 30%;
+		font-size: 1.5em;
 	}
 }
 
