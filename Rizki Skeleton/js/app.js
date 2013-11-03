@@ -47,15 +47,19 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			fadeIn: function (duration, callback) {
 				Fader.fadeInWithId("content", duration);
 
-				callback();
+				if (callback) {
+					callback();
+				}
 			},
 
 			fadeOut: function (duration, callback) {
 				Fader.fadeOutWithId("content", duration);
 
-				callback();
+				if (callback) {
+					callback();
+				}
 			}
-		}
+		} 
 	};
 	
 	// Controller Init
