@@ -441,6 +441,10 @@ and (min-width : 1024px) {
 			margin-right:3%;
 		}
 
+	article > section:nth-of-type(2) > section > section > label {
+		font-size: 1.5em;
+	}
+
 	article > section:nth-of-type(2) > section > section > input {
 		width: 5em;
 		font-size: 1.5em;

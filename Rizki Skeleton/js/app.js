@@ -1,7 +1,6 @@
 var FRISBEEAPP = FRISBEEAPP || {};
 
 (function () {
-
 	'use strict';
 	
 	//Schedule data object
