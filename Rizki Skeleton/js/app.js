@@ -286,20 +286,16 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			//Grab value of radio button
 			var radioChecked = document.querySelector('input[name="is_final"]:checked').value;
 
-			var isFinal = false;
-
 			if (radioChecked == "yes") {
-				isFinal = true;
-
 				if(confirm("Once you agree that the game has ended, you will not be able to update the score anymore, are you sure you want to proceed?")) {
 					//Fire updatenewScore function
-					FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, isFinal);
+					FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, "True");
 				} 
 			}
 
 			if (radioChecked == "no") {
 				//Fire updatenewScore function
-				FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, isFinal);
+				FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, "False");
 			}
 		},
 
@@ -314,7 +310,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	                "game_id": gameID,
 	                "team_1_score": team1Score,
 	                "team_2_score": team2Score,
-	                "final": isFinal
+	                "is_final": isFinal
 	        };
 
 	        //Set method, url and if async
