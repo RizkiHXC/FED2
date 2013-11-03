@@ -3,6 +3,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 (function () {
 
 	'use strict';
+<<<<<<< HEAD
 
 	// Verwijder deze objecten =) 
 	
@@ -61,14 +62,70 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	// 	rank: [
 	// 	]
 	// };
+=======
+	
+	//Schedule data object
+	FRISBEEAPP.schedule = {
+		schedule: [
+		]
+	};
+	//Game data object
+	FRISBEEAPP.game = {
+		game: [
+		]
+	};
+
+	//Ranking data object
+	FRISBEEAPP.ranking = {
+		rank: [
+		]
+	};
+
+	//Some utilities
+	FRISBEEAPP.utilities = {
+		spinner: {
+			spinnerObject: document.getElementById("spinner"), 
+
+			show: function () {
+				FRISBEEAPP.utilities.fader.fadeOut(.5, function () {
+					FRISBEEAPP.utilities.spinner.spinnerObject.className = "spin";
+				});
+			},
+			hide: function () {
+				FRISBEEAPP.utilities.fader.fadeIn(.5, function () {
+					FRISBEEAPP.utilities.spinner.spinnerObject.className ="stopspin";
+				});
+			}
+		},
+
+		error: {
+			alert: function (reason, message) {
+				alert(reason + " " + message);
+			}
+		},
+
+		fader: {
+			fadeIn: function (duration, callback) {
+				Fader.fadeInWithId("content", duration);
+
+				callback();
+			},
+
+			fadeOut: function (duration, callback) {
+				Fader.fadeOutWithId("content", duration);
+
+				callback();
+			}
+		}
+	};
+>>>>>>> pr/1
 	
 	// Controller Init
 	FRISBEEAPP.controller = {
 		init: function () {
 			// Initialize router
-			//FRISBEEAPP.calculator.init();
-			FRISBEEAPP.ajax.init();
-			//FRISBEEAPP.router.init();
+			FRISBEEAPP.router.init();
+			FRISBEEAPP.gestures.init();
 		}
 	};
 
@@ -77,51 +134,57 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		init: function () {
 	  		routie({
 			    '/schedule': function() {
-			    	FRISBEEAPP.page.render('schedule');
+			    	FRISBEEAPP.ajax.getObjectsForSchedule();
 				},
-			    '/game': function() {
-			    	FRISBEEAPP.page.render('game');
+			    '/game/:gameID': function(gameID) {
+			    	FRISBEEAPP.ajax.getObjectsForGame(gameID);
 			    },
 
 			    '/ranking': function() {
-			    	FRISBEEAPP.page.render('ranking');
+			    	FRISBEEAPP.ajax.getObjectsForRanking();
 			    },
 			    '*': function() {
-			    	FRISBEEAPP.page.render('schedule');
+			    	FRISBEEAPP.ajax.getObjectsForSchedule();
 			    }
 			});
+<<<<<<< HEAD
 						   // Nodig ?
 						   //console.log("INITTTT");
+=======
+>>>>>>> pr/1
 		},
 
 		change: function () {
-            var route = window.location.hash.slice(2),
-                sections = qwery('section'),
-                section = qwery('[data-route=' + route + ']')[0];
+			var sections = qwery('section[data-route]'),
+            	route 	 = window.location.hash.slice(2);
+        	
+        	for(var i = 0; i < sections.length; i++) {
+        			sections[i].classList.remove('active');
+        	}
+			
+			//Check if slash is there or not for gameID
+			if(route.search("/") != -1) {
+				route = route.substring(0, route.search("/"));
+			}
+        	
+        	var sectionToChange = qwery('[data-route=' + route + ']')[0];
 
-            // Show active section, hide all other
-            // If section is true, remove active class in all sections then add active to section
-            if (section) {
-            	for (var i=0; i < sections.length; i++){
-            		sections[i].classList.remove('active');
-            	}
-            	section.classList.add('active');
-            }
-
-            // Default route
-            if (!route) {
-            	sections[0].classList.add('active');
-            }
-
+        	sectionToChange.classList.add('active');
+ 
+        	// If no route is found, default is schedule
+        	if (!route) {
+        		sections[0].classList.add('active');
+        	}
 		}
+
 	};
 
 	// Pages
 	FRISBEEAPP.page = {
 		render: function (route) {
-			// http://javascriptweblog.wordpress.com/2010/04/19/how-evil-is-eval/
 			var data = FRISBEEAPP[route];
 
+<<<<<<< HEAD
 			Transparency.render(qwery('[data-route='+route+']')[0], data);
 			FRISBEEAPP.router.change();
 		}
@@ -151,27 +214,74 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	// 		return pointsBalance;
 	// 	}
 	// }
+=======
+			//Add data to some attributes
+			var directives = {
+				// Array of data
+				schedule: {
+					//ID of the to be changed
+					link: {
+						href: function(params) {
+							return "#/game/" + this.gameID;
+						}
+					}
+				},
+
+				game: {
+					team1Score: {
+						value: function (params) {
+							return this.team1Score;
+						}
+					},
+					team2Score: {
+						value: function (params) {
+							return this.team2Score;
+						}
+					}
+				}
+			}
+			Transparency.render(qwery('[data-route='+route+']')[0], data, directives);
+			FRISBEEAPP.router.change();
+		}
+	}
+>>>>>>> pr/1
 
 >>>>>>> f03c86f2c271b758427df0d3b4e00d4cb35f428c
 	FRISBEEAPP.ajax = {
-		init: function () {
-			this.getObjectsForRanking("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
-			this.getObjectsForSchedule("https://api.leaguevine.com/v1/games/?tournament_id=19389&limit=100&access_token=6c8247a098");
-		},
+		//Grabs the objects for the ranking page
+		getObjectsForRanking: function () {
+			//Feed URL for ranking
+			var feed = "https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D";
 
+<<<<<<< HEAD
 		getObjectsForRanking: function (url) {
 			// data is duidelijker als text
 			promise.get(url).then(function(error, data, xhr){
+=======
+			// Fixes visual bug where DOM shows some objects
+			document.querySelector('article > section:nth-of-type(3) > section').classList.remove("show");
+			document.querySelector('article > section:nth-of-type(3) > section').classList.add("hide");
+
+			FRISBEEAPP.utilities.spinner.show();
+
+			promise.get(feed).then(function(error, data, xhr){
+>>>>>>> pr/1
 				if (error) {
-       				alert('Error ' + xhr.status);
+       				FRISBEEAPP.utilities.error.alert("Request timed out. Error code: ");
         			return;
     			}	
+				
+				data = JSON.parse(data)
 
+<<<<<<< HEAD
 				// var parsedObject = JSON.parse(text);
 				data = JSON.parse(data)
 				// Zo hoef je geen nieuwe var aan te maken en blijft de var duidelijk =)
 
 				// For elke pool in de api
+=======
+				// For every pool in the api get poolname
+>>>>>>> pr/1
 				for (var i = 0; i < data.objects.length; i++) {
 					var poolName = data.objects[i].name;
 
@@ -182,10 +292,15 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					// (*)
 					FRISBEEAPP.ranking.rank[i].teams = [];
 
+<<<<<<< HEAD
 					// For elke team binnen een pool
 					for (var c = 0; c < data.objects[i].standings.length; c++) {
 						//console.log(parsedObject.objects[i].standings[c].team.name);
 
+=======
+					// For every team in a pool grab data
+					for (var c = 0; c < data.objects[i].standings.length; c++) {
+>>>>>>> pr/1
 						FRISBEEAPP.ranking.rank[i].teams[c] = {
 						 	team: data.objects[i].standings[c].team.name,
 						 	win: data.objects[i].standings[c].wins,
@@ -196,36 +311,200 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						};
 					}	
 				}
-				FRISBEEAPP.router.init();
+				//Shows elements after array has been filled
+				document.querySelector('article > section:nth-of-type(3) > section').classList.remove("hide");
+				document.querySelector('article > section:nth-of-type(3) > section').classList.add("show");
+
+				FRISBEEAPP.utilities.spinner.hide();
+				FRISBEEAPP.page.render('ranking', function () {
+				});
+
 			});
 		},
 
+<<<<<<< HEAD
 		getObjectsForSchedule: function (url) {
 			// Zie functie hierboven voor zelfde verandering (data)
 			promise.get(url).then(function(error, text, xhr) {
+=======
+		getObjectsForSchedule: function () {
+			var feed = "https://api.leaguevine.com/v1/games/?tournament_id=19389&limit=100&access_token=6c8247a098";
+			document.querySelector('article > section:nth-of-type(1) > section').classList.remove("show");
+			document.querySelector('article > section:nth-of-type(1) > section').classList.add("hide");
+			FRISBEEAPP.utilities.spinner.show();
+			
+			promise.get(feed).then(function(error, data, xhr) {
+>>>>>>> pr/1
 				if (error) {
-       				alert('Error ' + xhr.status);
+       				FRISBEEAPP.utilities.error.alert("Request timed out. Error: ");
         			return;
     			}	
 
-				var parsedObject = JSON.parse(text);
+				data = JSON.parse(data);
 
-				for (var i = 0; i < parsedObject.objects.length; i++) {
+				for (var i = 0; i < data.objects.length; i++) {
+					var year = data.objects[i].start_time.substr(0,4);
+					var month = data.objects[i].start_time.substr(5,2);
+					var day = data.objects[i].start_time.substr(8,2);
+					var hour = data.objects[i].start_time.substr(11,2)
+					var minutes = data.objects[i].start_time.substr(14,2)
+
 					FRISBEEAPP.schedule.schedule[i] = {
-						poolID: parsedObject.objects[i].pool.name,
-						date: parsedObject.objects[i].start_time,
-						team1: parsedObject.objects[i].team_1.name,
-						team1Score: parsedObject.objects[i].team_1_score,
-						team2: parsedObject.objects[i].team_2.name,
-						team2Score: parsedObject.objects[i].team_2_score,
-						gameID: parsedObject.objects[i].id
+						poolID: "Pool " + data.objects[i].pool.name,
+						date: day + "-" + month + "-" + year + " " + hour + ":" + minutes,
+						team1: data.objects[i].team_1.name,
+						team1Score: data.objects[i].team_1_score,
+						team2: data.objects[i].team_2.name,
+						team2Score: data.objects[i].team_2_score,
+						gameID: data.objects[i].id
 					};
+
+					if (i < data.objects.length - 1) {
+
+						if (data.objects[i].pool.name  == data.objects[i + 1].pool.name) {
+							FRISBEEAPP.schedule.schedule[i].poolID = "";
+						}
+					}
 				}
-				console.log(FRISBEEAPP.schedule.schedule);
-				FRISBEEAPP.router.init();
+				FRISBEEAPP.utilities.spinner.hide();
+				document.querySelector('article > section:nth-of-type(1) > section').classList.remove("hide");
+				document.querySelector('article > section:nth-of-type(1) > section').classList.add("show");
+				FRISBEEAPP.schedule.schedule.reverse();
+				FRISBEEAPP.page.render('schedule');
 			});
+		},
+
+		getObjectsForGame: function (gameID) {
+			FRISBEEAPP.utilities.spinner.show();
+			var feed = "https://api.leaguevine.com/v1/games/" + gameID + "/";
+
+			promise.get(feed).then(function(error, data, xhr) {
+				if (error) {
+       				alert('Error ' + xhr.status);
+        			return;
+    			}
+
+    			data = JSON.parse(data);	
+
+    			FRISBEEAPP.game.game = {
+    				team1Name: data.team_1.name,
+    				team2Name: data.team_2.name,
+    				team1Score: data.team_1_score,
+    				team2Score: data.team_2_score
+    			}
+    			
+    			FRISBEEAPP.page.render('game');
+    			FRISBEEAPP.utilities.spinner.hide();
+    		});
+		},
+
+		saveNewScore: function () {
+			//Locate gameID from URL
+			var gameID = window.location.hash.slice(2);
+			if(gameID.search("/") != -1) {
+				//FIX THE SUBSTRRRR
+				gameID = gameID.substr(gameID.search("/") + 1 , 6);
+			}	
+
+			//Grab the value out of the input types
+			var team1Score = document.getElementById('team1Score').value;
+			var team2Score = document.getElementById('team2Score').value;
+
+			//Grab value of radio button
+			var radioChecked = document.querySelector('input[name="is_final"]:checked').value;
+
+			var isFinal = false;
+
+			if (radioChecked == "yes") {
+				isFinal = true;
+
+				if(confirm("Once you agree that the game has ended, you will not be able to update the score anymore, are you sure you want to proceed?")) {
+					//Fire updatenewScore function
+					FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, isFinal);
+				} 
+			}
+
+			if (radioChecked == "no") {
+				//Fire updatenewScore function
+				FRISBEEAPP.ajax.updateNewScore(gameID, team1Score, team2Score, isFinal);
+			}
+		},
+
+		updateNewScore: function (gameID, team1Score, team2Score, isFinal) {
+			FRISBEEAPP.utilities.spinner.show();
+
+			//Make new request object
+	        var request = new XMLHttpRequest();
+
+	        //The data to adjust
+	        var dataToSend = {
+	                "game_id": gameID,
+	                "team_1_score": team1Score,
+	                "team_2_score": team2Score,
+	                "final": isFinal
+	        };
+
+	        //Set method, url and if async
+	        request.open("POST","https://api.leaguevine.com/v1/game_scores/",true);
+
+	        //Set request subject and content
+	        request.setRequestHeader("Content-Type","application/json");
+	        request.setRequestHeader("Accept","application/json");
+	        request.setRequestHeader("Authorization","bearer 395c969df9");
+
+	        //Stringify data
+	        request.send(JSON.stringify(dataToSend));
+
+	        //If reeadystate changes do stuff
+	        request.onreadystatechange = function() {
+                  if(request.readyState == 4) {
+                  	FRISBEEAPP.utilities.spinner.hide();
+                  	FRISBEEAPP.utilities.error.alert("Posted new score.", "Check the schedule page for the update!");
+                  	console.log("Post success!");
+                  } document.getElementById("gesture")
+	         }
 		}
 	}
+
+	FRISBEEAPP.gestures = {
+		init: function () {
+			$$("#swipeleft").swipeLeft(function () {
+				//Get whole URL
+				var url = document.URL;
+				//Look for hash, cut 2 characters from there and take rest
+				var hash = window.location.hash.slice(2);
+				//Check if link contains http
+				var fileChecker = document.URL.substring(0, 4);
+				//Get base url, without anything after hash
+				var baseUrl;
+
+				if (hash != "schedule" && fileChecker != "http") { 
+					baseUrl = "file:///Users/indoboy_rizki/Documents/Hogeschool%20van%20Amsterdam/Leerjaar%203/FED2/FED2/Rizki%20Skeleton/index.html#/";
+				} else if (hash!= "schedule" && fileChecker == "http") {
+					baseUrl = "http://rizkicalame.com/fed2/index.html#/";
+				} else {
+					baseUrl = url.substring(0, url.search(hash));
+				}
+
+				//Go to other page
+				window.location.href = baseUrl + "ranking";
+				FRISBEEAPP.ajax.getObjectsForRanking;
+			});
+
+			$$("#swiperight").swipeRight(function () {
+				var url = document.URL;
+				var hash = window.location.hash.slice(2);
+
+				var baseUrl = url.substring(0, url.search(hash));
+
+				window.location.href = baseUrl + "schedule";
+				FRISBEEAPP.ajax.getObjectsForRanking;
+
+				console.log(baseUrl + "schedule");
+			});
+		},
+	}
+
 
 
 	// If DOM == ready, fire function:

@@ -24,7 +24,7 @@ a {
 	-webkit-transition:all .5s ease;
 }
 a:hover {
-	color:#ff0000;
+	color:#ffb400;
 	background-color: #f4f4f4;
 }
 ul {
@@ -33,20 +33,17 @@ ul {
 	padding:0;
 }
 	ul li {
-		margin-bottom: .5em;
-		text-align: center;
-		height: 3em;
+		
 	}
 		ul li a {
 			display:block;
 			border-color:#333;
-			border-style: none;
+			border-style:solid;
 			border-width:1px 0 0;
-			background-color: rgba(6, 97, 1, 1);
+			background-color: #f5f5f5;
 			line-height:2;
 			text-decoration: none;
 			padding:0 2%;
-			color: #fff;
 		}
 			ul li a strong {
 				display:block;
@@ -58,8 +55,7 @@ ul {
 		}
 
 		ul li a:hover {
-			background-color: #fff;
-			color: #000;
+			background-color: #eee;
 		}
 
 section img, video {
@@ -71,17 +67,12 @@ section img, video {
 }
 
 #changescore {
-	text-align: center;
-	float: left;
-	width: 100%;
-}
-
-.show {
-	display: block;
-}
-
-.hide {
-	display: none;
+	width: 6em;
+	height: 4em;
+	box-shadow: 0 0 0;
+	border-radius: 0;
+	border: 0;
+	float: right;
 }
 
 th {
@@ -89,27 +80,16 @@ th {
 }
 
 td:nth-of-type(1) {
-	width: 60%;
+	width: 20em;
 }
 
 td {
-	width: 10em;
-	padding-bottom: .5em;
-	padding-top: .5em;
+	width: 4em;
 }
 
-tr#tablerow:nth-of-type(even) {
-	background-color: rgba(220, 240, 220, 1);
-}
-
-article > section:nth-of-type(2) > section > section > input {
-	width: 3em;
-	font-size: 1em;
-	text-align: right;
-}
-
-input:nth-of-type(2) {
-	text-align: left;
+input {
+	width: 20em;
+	height: 10em;
 }
 
 video {
@@ -132,7 +112,7 @@ header {
 }
 	header h1 {
 		font-family: "HelveticaNeue-Light";
-		color:#fff;
+		color:#000;
 		font-size: 1.6em;
 		width: 100%;
 		text-align: center;
@@ -176,76 +156,17 @@ article > section > section > section > h1:nth-of-type(2) {
 	font-size: 1em;
 }
 
-article > section:nth-of-type(1) > section > section:nth-of-type(even), article > section:nth-of-type(1) > section > section:nth-of-type(even) > div.score {
+article > section:nth-of-type(1) > section > section {
+	padding-bottom: 3em;
+}
+
+article > section:nth-of-type(1) > section > section:nth-of-type(even) {
 	background-color: rgba(220, 240, 220, 1);
 }
 
-article > section:nth-of-type(1) > section > section:nth-of-type(even) > div.score {
-	padding-bottom: 2em;
-}
-
-#wholegroup {
-	text-align: center;
-	margin: 0 auto;
-}
-
-#scoregroup {
+article > section:nth-of-type(1) > section > section > label:nth-of-type(2), article > section:nth-of-type(1) > section > section > label:nth-of-type(4) {
 	font-weight: bold;
-	font-size: 1.2em;
-	display: inline-block;
-	text-align: center;
-	padding-bottom: 1em;
-	width: 50%;
 }
-
-#outline {
-	display: inline-block;
-	width: 20%;
-	font-size: 1em;
-}
-
-div.score {
-	float: left;
-	text-align: center;
-	width: 100%;
-}
-
-#changescore {
-	float: none;
-	width: 200px;
-}
-
-article > section:nth-of-type(1) > section > section > label:nth-of-type(1) {
-	display: inline-block;
-	text-align: right;
-}
-
-article > section:nth-of-type(1) > section > section > label:nth-of-type(2) {
- 	display: inline-block;
- 	text-align: left;
- }
-
-article > section:nth-of-type(2) > section > section {
-	padding-top: 2em;
-	text-align: center;
-}
-
-article > section:nth-of-type(2) > section > section > label {
-	font-size: 1em;
-}
-
-article > section:nth-of-type(2) > section > section > label:nth-of-type(1) {
-	padding-right: 1em;
-}
-
-article > section:nth-of-type(2) > section > section > label:nth-of-type(3) {
-	padding-left: 1em;
-}
-
-article > section:nth-of-type(2) > section > section > p:nth-of-type(1) > label:nth-of-type(1) {
-	padding-right: 2em;
-}
-
 article > section:nth-of-type(3) > section > h1 {
 	font-size: 2em;
 }
@@ -400,28 +321,22 @@ and (min-width : 1024px) {
 	nav {
 		position:relative;
 		padding:.2em;
-		text-align: center;
 	}
 		nav ul li {
 			display:inline-block;
-		}
+			margin-right:.3em;
 
-		nav ul li:nth-of-type(2) {
-			
 		}
-
 			nav ul li a {
 				font-weight: normal;
 				display: inline-block;
-				background: rgba(6, 97, 1, 1);
+				background:#eee;
 				padding:5px 10px;
-				color: #fff;
+				color:#333;
 				text-decoration: none;
 				border-radius: 5px;
 				-webkit-transition:all .2s ease;
 				border:none;
-				float: left;
-				text-align: center;
 			}
 			nav ul li a:hover {
 				background:#e0e0e0;
@@ -440,41 +355,6 @@ and (min-width : 1024px) {
 			width:25%;
 			margin-right:3%;
 		}
-
-	article > section:nth-of-type(2) > section > section > input {
-		width: 5em;
-		font-size: 1.5em;
-		text-align: right;
-	}
-
-	article > section:nth-of-type(1) > section > section > p {
-		width: 100%;
-		background-color: blue;
-	}
-
-	article > section:nth-of-type(1) > section > section:nth-of-type(even), article > section:nth-of-type(1) > section > section:nth-of-type(even) > div.score {
-	background-color: rgba(220, 240, 220, 1);
-	}
-
-	#wholegroup {
-	text-align: center;
-	margin: 0 auto;
-	}
-
-	#scoregroup {
-		font-weight: bold;
-		font-size: 4em;
-		display: inline-block;
-		text-align: center;
-		padding-bottom: 1em;
-		width: 50%;
-	}
-
-	#outline {
-		display: inline-block;
-		width: 20%;
-		font-size: 1.5em;
-	}
 }
 
 /* Large screens ----------- */

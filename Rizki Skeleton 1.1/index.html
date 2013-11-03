@@ -11,7 +11,8 @@
 		<h1>AMSTERDAM ULTIMATE FRISBEE</h1>
 		<nav>
 			<ul>
-				<li><a href="#/schedule">Schedule</a></li>
+				<li><a href="#/schedule" data>Schedule</a></li>
+				<li><a href="#/game">Game</a></li>
 				<li><a href="#/ranking">Ranking</a></li>
 		    </ul>
 		</nav>
@@ -21,43 +22,28 @@
 	
 	<article id="content" class="col">
 		<section data-route="schedule" class="active">
-			<section data-bind="schedule" id="swipeleft">
+			<section data-bind="schedule">
 			    <section>
-		      		<h1 data-bind="poolID"></h1>
-		     		<h1 data-bind="date"></h1>
-		     		<div id="wholegroup"> 
-		     			<div id="outline"><label data-bind="team1"></label></div>
-		     	 		<div id="scoregroup">
-		     	 			<label data-bind="team1Score"></label> <label>v.</label>	<label data-bind="team2Score"></label>
-		     	 		</div>
-		     	 	 	<div id="outline"><label data-bind="team2"></label></div>
-		     		 </div>
-
-		     		<div class="score">
-		     			<a data-bind="link" id="changescore"><label>Change Score </label></a>
-		     		</div>
+			      <h1 data-bind="poolID"></h1>
+			      <h1 data-bind="date"></h1>
+			      <label data-bind="team1"></label> <label data-bind="team1Score"></label> <label>v.</label> <label data-bind="team2Score"></label> <label data-bind="team2"></label><a href=""><img src="images/button.png" id="changescore"></img></a>
 			    </section>
 			</section>
 		</section>
 
 		<section data-route="game">
+			<h1 data-bind="title"></h1>
+			<p data-bind="description"></p>
 			<section data-bind="game">
 				<section>
-					<label data-bind="team1Name"></label>
-					<input type="number" data-bind="team1Score" name="team1Score" id="team1Score" min="1" max="100" /><label> v. </label><input type ="number" data-bind="team2Score" name="team2Score" id="team2Score" min"1" max="100" /> <label data-bind="team2Name"></label>
-					<p>
-						<label> Game ended? </label> <input type="radio" name="is_final" value="yes" /> <label> Yes </label> <input type="radio" checked="checked" name="is_final" value="no" /> <label> No </label>
-					</p>
-					<p>
-						<a href="javascript:void(0);" onclick="FRISBEEAPP.ajax.saveNewScore();"><label>Post Score</label></a> 
-					</p>
 				</section>
 			</section>
 		</section>
 
 		<section data-route="ranking">
-			<section data-bind="rank" id="swiperight">			
+			<section data-bind="rank">			
 				<h1 data-bind="poolID"></h1>
+				
 				<table>
 					<tr>
 						<th>Team</th>
@@ -68,7 +54,7 @@
 						<th>+/-</th>
 					</tr>
 					<tbody data-bind="teams">
-						<tr id="tablerow">
+						<tr>
 							<td data-bind="team"></td>
 							<td data-bind="win"></td>
 							<td data-bind="lost"></td>
@@ -90,7 +76,6 @@
 	<script src="js/library/transparancy.min.js" type="text/javascript"></script>
 	<script src="js/library/promise.min.js" type="text/javascript"></script>
 	<script src="js/library/fader.min.js"></script>
-	<script src="js/library/quo.js"></script>
 
 	<!-- Application -->
 	<script src="js/app.js"></script>
