@@ -323,7 +323,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 	        //Set request subject and content
 	        request.setRequestHeader("Content-Type","application/json");
 	        request.setRequestHeader("Accept","application/json");
-	        request.setRequestHeader("Authorization","bearer 74884efad3");
+	        request.setRequestHeader("Authorization","bearer 395c969df9");
 
 	        //Stringify data
 	        request.send(JSON.stringify(dataToSend));
@@ -346,11 +346,15 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				var url = document.URL;
 				//Look for hash, cut 2 characters from there and take rest
 				var hash = window.location.hash.slice(2);
+				//Check if link contains http
+				var fileChecker = document.URL.substring(0, 4);
 				//Get base url, without anything after hash
 				var baseUrl;
 
-				if (hash != "schedule") { 
-					baseUrl = "file:///Users/indoboy_rizki/Documents/Hogeschool%20van%20Amsterdam/Leerjaar%203/FED2/RD/Rizki%20Skeleton/index.html#/";
+				if (hash != "schedule" && fileChecker != "http") { 
+					baseUrl = "file:///Users/indoboy_rizki/Documents/Hogeschool%20van%20Amsterdam/Leerjaar%203/FED2/FED2/Rizki%20Skeleton/index.html#/";
+				} else if (hash!= "schedule" && fileChecker == "http") {
+					baseUrl = "http://rizkicalame.com/fed2/index.html#/";
 				} else {
 					baseUrl = url.substring(0, url.search(hash));
 				}
@@ -368,6 +372,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 				window.location.href = baseUrl + "schedule";
 				FRISBEEAPP.ajax.getObjectsForRanking;
+
+				console.log(baseUrl + "schedule");
 			});
 		},
 	}

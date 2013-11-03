@@ -89,11 +89,17 @@ th {
 }
 
 td:nth-of-type(1) {
-	width: 20em;
+	width: 60%;
 }
 
 td {
-	width: 4em;
+	width: 10em;
+	padding-bottom: .5em;
+	padding-top: .5em;
+}
+
+tr#tablerow:nth-of-type(even) {
+	background-color: rgba(220, 240, 220, 1);
 }
 
 article > section:nth-of-type(2) > section > section > input {
@@ -170,8 +176,12 @@ article > section > section > section > h1:nth-of-type(2) {
 	font-size: 1em;
 }
 
-article > section:nth-of-type(1) > section > section:nth-of-type(even) {
+article > section:nth-of-type(1) > section > section:nth-of-type(even), article > section:nth-of-type(1) > section > section:nth-of-type(even) > div.score {
 	background-color: rgba(220, 240, 220, 1);
+}
+
+article > section:nth-of-type(1) > section > section:nth-of-type(even) > div.score {
+	padding-bottom: 2em;
 }
 
 #wholegroup {
@@ -185,13 +195,24 @@ article > section:nth-of-type(1) > section > section:nth-of-type(even) {
 	display: inline-block;
 	text-align: center;
 	padding-bottom: 1em;
-	width: 5em;
+	width: 50%;
 }
 
 #outline {
 	display: inline-block;
-	width: 30%;
+	width: 20%;
 	font-size: 1em;
+}
+
+div.score {
+	float: left;
+	text-align: center;
+	width: 100%;
+}
+
+#changescore {
+	float: none;
+	width: 200px;
 }
 
 article > section:nth-of-type(1) > section > section > label:nth-of-type(1) {
@@ -199,7 +220,7 @@ article > section:nth-of-type(1) > section > section > label:nth-of-type(1) {
 	text-align: right;
 }
 
- article > section:nth-of-type(1) > section > section > label:nth-of-type(2) {
+article > section:nth-of-type(1) > section > section > label:nth-of-type(2) {
  	display: inline-block;
  	text-align: left;
  }
@@ -420,17 +441,6 @@ and (min-width : 1024px) {
 			margin-right:3%;
 		}
 
-	div.score {
-		float: left;
-		text-align: center;
-		width: 100%;
-	}
-
-	#changescore {
-		float: none;
-		width: 200px;
-	}
-
 	article > section:nth-of-type(2) > section > section > input {
 		width: 5em;
 		font-size: 1.5em;
@@ -440,6 +450,10 @@ and (min-width : 1024px) {
 	article > section:nth-of-type(1) > section > section > p {
 		width: 100%;
 		background-color: blue;
+	}
+
+	article > section:nth-of-type(1) > section > section:nth-of-type(even), article > section:nth-of-type(1) > section > section:nth-of-type(even) > div.score {
+	background-color: rgba(220, 240, 220, 1);
 	}
 
 	#wholegroup {
@@ -453,12 +467,12 @@ and (min-width : 1024px) {
 		display: inline-block;
 		text-align: center;
 		padding-bottom: 1em;
-		width: 5em;
+		width: 50%;
 	}
 
 	#outline {
 		display: inline-block;
-		width: 30%;
+		width: 20%;
 		font-size: 1.5em;
 	}
 }

@@ -21,8 +21,8 @@
 	
 	<article id="content" class="col">
 		<section data-route="schedule" class="active">
-			<section data-bind="schedule">
-			    <section id="swipeleft">
+			<section data-bind="schedule" id="swipeleft">
+			    <section>
 		      		<h1 data-bind="poolID"></h1>
 		     		<h1 data-bind="date"></h1>
 		     		<div id="wholegroup"> 
@@ -68,7 +68,7 @@
 						<th>+/-</th>
 					</tr>
 					<tbody data-bind="teams">
-						<tr>
+						<tr id="tablerow">
 							<td data-bind="team"></td>
 							<td data-bind="win"></td>
 							<td data-bind="lost"></td>
