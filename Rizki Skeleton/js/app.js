@@ -123,28 +123,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		}
 	}
 
-	// Calculate ± points
-
-	FRISBEEAPP.calculator = {
-		init: function() {
-			//Create a loop that loops through every array and picks up/calculates the balance of scores:
-			for(var i = 0; i < FRISBEEAPP.ranking.rank.length; i++) {
-				var balance = this.calculateBalance(FRISBEEAPP.ranking.rank[i]["Pw"], FRISBEEAPP.ranking.rank[i]["Pl"]);
-				
-				FRISBEEAPP.ranking.rank[i]["Bl"] = balance;
-			}
-		},
-
-		calculateBalance: function (won, lost) {
-			var pointsWon = parseInt(won);
-			var pointsLost = parseInt(lost);
-
-			var pointsBalance = pointsWon - pointsLost;
-
-			return pointsBalance;
-		}
-	}
-
 	FRISBEEAPP.ajax = {
 		init: function () {
 			this.getObjectsForRanking("https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D");
