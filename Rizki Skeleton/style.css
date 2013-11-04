@@ -231,7 +231,7 @@ article > section:nth-of-type(2) > section > section {
 }
 
 article > section:nth-of-type(2) > section > section > label {
-	font-size: 1em;
+	font-size: .8em;
 }
 
 article > section:nth-of-type(2) > section > section > label:nth-of-type(1) {
