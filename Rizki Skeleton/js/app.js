@@ -113,7 +113,6 @@ var FRISBEEAPP = FRISBEEAPP || {};
         		sections[0].classList.add('active');
         	}
 		}
-
 	};
 
 	// Pages
@@ -142,6 +141,14 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					team2Score: {
 						value: function (params) {
 							return this.team2Score;
+						}
+					},
+					score: {
+						href: function (params) {
+							return "javascript:void(0);";
+						},
+						onclick: function(params) {
+							return "FRISBEEAPP.ajax.saveNewScore();";
 						}
 					}
 				}
