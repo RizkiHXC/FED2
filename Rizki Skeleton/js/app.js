@@ -282,8 +282,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 		saveNewScore: function () {
 			//Locate gameID from URL
 			var gameID = window.location.hash.slice(2);
+			//Search for game/xxxxxx
 			if(gameID.search("/") != -1) {
-				//FIX THE SUBSTRRRR
 				gameID = gameID.substr(gameID.search("/") + 1 , 6);
 			}	
 
