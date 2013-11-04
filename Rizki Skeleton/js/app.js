@@ -161,11 +161,13 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			document.querySelector('article > section:nth-of-type(3) > section').classList.remove("show");
 			document.querySelector('article > section:nth-of-type(3) > section').classList.add("hide");
 
+			//Spinner on off
 			FRISBEEAPP.utilities.spinner.show();
 
+			//Get objects
 			promise.get(feed).then(function(error, data, xhr){
 				if (error) {
-       				FRISBEEAPP.utilities.error.alert("Request timed out. Error code: ");
+       				FRISBEEAPP.utilities.error.alert("Request timed out. Error code: " + xhr.status);
         			return;
     			}	
 				
@@ -212,7 +214,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 			
 			promise.get(feed).then(function(error, data, xhr) {
 				if (error) {
-       				FRISBEEAPP.utilities.error.alert("Request timed out. Error: ");
+       				FRISBEEAPP.utilities.error.alert("Request timed out. Error: " + xhr.status);
         			return;
     			}	
 
@@ -235,6 +237,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 						gameID: data.objects[i].id
 					};
 
+					//Check if poolnames are the same
 					if (i < data.objects.length - 1) {
 
 						if (data.objects[i].pool.name  == data.objects[i + 1].pool.name) {
@@ -245,6 +248,8 @@ var FRISBEEAPP = FRISBEEAPP || {};
 				FRISBEEAPP.utilities.spinner.hide();
 				document.querySelector('article > section:nth-of-type(1) > section').classList.remove("hide");
 				document.querySelector('article > section:nth-of-type(1) > section').classList.add("show");
+
+				//Reverse the array
 				FRISBEEAPP.schedule.schedule.reverse();
 				FRISBEEAPP.page.render('schedule');
 			});
@@ -256,7 +261,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 
 			promise.get(feed).then(function(error, data, xhr) {
 				if (error) {
-       				alert('Error ' + xhr.status);
+       				FRISBEEAPP.utilities.error.alert("Request timed out. Error: " + xhr.status);
         			return;
     			}
 
