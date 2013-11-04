@@ -358,6 +358,7 @@ var FRISBEEAPP = FRISBEEAPP || {};
 					baseUrl = url.substring(0, url.search(hash));
 				}
 
+
 				//Go to other page
 				window.location.href = baseUrl + "ranking";
 				FRISBEEAPP.ajax.getObjectsForRanking;
